@@ -43,7 +43,7 @@ echo '<br><br>';
 
 echo '<b>' . 'Задание #4' . '</b><br><br>';
 $day = rand(-2, 8);
-echo 'День номер - ' . $day . PHP_EOL;
+echo 'День номер - ' . $day . '<br>';
 switch ($day) {
     case 1:
         echo 'Это рабочий день';
@@ -96,7 +96,7 @@ echo '<b>' . 'Задание #6' . '</b><br><br>';
 echo '<table>';
 
 for ($i = 1; $i <= 10; $i++) {
-    echo "<tr><td>$i</td>";
+    echo '<tr>';
     for ($j = 1; $j<=10; $j++) {
         echo '<td>' . $i*$j . '</td>';
     }
