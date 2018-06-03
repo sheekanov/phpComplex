@@ -75,9 +75,9 @@ echo '<br><br>';
 //Задание №5
 
 echo '<b>' . 'Задание #5' . '</b><br><br>';
-$bmw['x5'] = array('model' => 'X5', 'speed' => '120', 'doors' => '5', 'year' => '2015');
-$toyota['tlc'] = array('model' => 'Land Cruiser', 'speed' => '150', 'doors' => '5', 'year' => '2010');
-$opel['astra'] = array('model' => 'Astra', 'speed' => '100', 'doors' => '5', 'year' => '2018');
+$bmw['x5'] = array('model' => 'X5', 'speed' => 120, 'doors' => 5, 'year' => 2015);
+$toyota['tlc'] = array('model' => 'Land Cruiser', 'speed' => 150, 'doors' => '5', 'year' => 2010);
+$opel['astra'] = array('model' => 'Astra', 'speed' => 100, 'doors' => 5, 'year' => 2018);
 
 $cars['bmw'] = $bmw;
 $cars['toyota'] = $toyota;
