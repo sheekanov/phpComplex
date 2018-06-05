@@ -46,23 +46,13 @@ $day = rand(-2, 8);
 echo 'День номер - ' . $day . '<br>';
 switch ($day) {
     case 1:
-        echo 'Это рабочий день';
-        break;
     case 2:
-        echo 'Это рабочий день';
-        break;
     case 3:
-        echo 'Это рабочий день';
-        break;
     case 4:
-        echo 'Это рабочий день';
-        break;
     case 5:
         echo 'Это рабочий день';
         break;
     case 6:
-        echo 'Это выходной день';
-        break;
     case 7:
         echo 'Это выходной день';
         break;
@@ -93,15 +83,37 @@ foreach ($cars as $markKey => $marks) {
 //Задание №6
 
 echo '<b>' . 'Задание #6' . '</b><br><br>';
+
+$rows = 10;
+$cols = 10;
+
 echo '<table>';
 
-for ($i = 1; $i <= 10; $i++) {
-    echo '<tr>';
-    for ($j = 1; $j<=10; $j++) {
-        echo '<td>' . $i*$j . '</td>';
+//заголовок таблицы - "номера колонок"
+echo '<thead>';
+echo '<tr>';
+echo  '<td style = "font-weight: bold;">N</td>';
+for ($j = 1; $j <= $cols; $j++) {
+    echo '<td style = "font-weight: bold;">' . $j . '</td>';
+}
+echo '</tr>';
+echo '</thead>';
+
+//тело таблицы - "номера строк" и в ячейках - результат перемножений номеров строк и колонок.
+echo '<tbody>';
+for ($i = 1; $i <= $rows; $i++) {
+    echo '<tr><td style="font-weight: bold;">' . $i . '</td>';
+    for ($j = 1; $j <= $cols; $j++) {
+        if ($i % 2 == 0 && $j % 2 ==0) {
+            echo '<td>(' . $i*$j . ')</td>';
+        } elseif ($i % 2 != 0 && $j % 2 != 0) {
+            echo '<td>[' . $i*$j . ']</td>';
+        } else {
+            echo '<td>' . $i*$j . '</td>';
+        }
     }
     echo '</tr>';
 }
+echo'</tbody>';
+
 echo '</table>';
-
-
