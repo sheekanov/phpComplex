@@ -11,7 +11,19 @@ echo '<br><br>';
 
 echo 'Задание 2' . '<br>';
 echo 'вызываем task2(\'+\',1,2,3,4):'. '<br>';
-echo task2('+',1,2,3,4);
+echo task2('+', 1, 2, 3, 4);
+echo '<br>';
+echo 'вызываем task2(\'-\',1,2,3,4):'. '<br>';
+echo task2('-', 1, 2, 3, 4);
+echo '<br>';
+echo 'вызываем task2(\'*\',1,2,3,4):'. '<br>';
+echo task2('*', 1, 2, 3, 4);
+echo '<br>';
+echo 'вызываем task2(\'/\',1,2,3,4):'. '<br>';
+echo task2('/', 1, 2, 3, 4);
+echo '<br>';
+echo 'вызываем task2(\'/\',1,0,3,4):'. '<br>';
+echo task2('/', 1, 0, 3, 4);
 
 echo '<br><br>';
 

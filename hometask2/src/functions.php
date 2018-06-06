@@ -17,20 +17,46 @@ function task1(array $array, bool $return = false)
 
 function task2(string $operation, float ...$numbers)
 {
-    if ($operation == '+') {
-        $summ = 0;
-        foreach ($numbers as $number) {
-            $summ += $number;
-        }
-        return $summ;
-    } elseif ($operation == '*') {
-        $mult = 1;
-        foreach ($numbers as $number) {
-            $mult *= $number;
-        }
-        return $mult;
-    } else {
-        echo 'Недопустимая операция. Выберите + или *.';
+    switch ($operation) {
+        case '+':
+            $sum = 0;
+            foreach ($numbers as $number) {
+                $sum += $number;
+            }
+            return $sum;
+            break;
+        case '-':
+            $ex = $numbers[0];
+            for ($i = 1; $i < count($numbers); $i++) {
+                $ex -= $numbers[$i];
+            }
+            return $ex;
+            break;
+        case '*':
+            $mult = 1;
+            foreach ($numbers as $number) {
+                $mult *= $number;
+            }
+            return $mult;
+            break;
+        case '/':
+            $hasZero = 1;
+            for ($i = 1; $i < count($numbers); $i++) {
+                $hasZero *= $numbers[$i];
+            }
+
+            if ($hasZero) {
+                $div = $numbers[0];
+                for ($i = 1; $i < count($numbers); $i++) {
+                    $div /= $numbers[$i];
+                }
+                return $div;
+            } else {
+                echo 'Вы хотите поделить на ноль, побойтесь Бога';
+            }
+            break;
+        default:
+            echo 'Недопустимая операция. Выберите +,-,*,/';
     }
 }
 
