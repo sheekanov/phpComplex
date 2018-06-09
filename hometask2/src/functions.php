@@ -3,10 +3,7 @@
 function task1(array $array, bool $return = false)
 {
     if ($return) {
-        $concat = '';
-        foreach ($array as $arrayItem) {
-            $concat = $concat . $arrayItem;
-        }
+        $concat = implode(' ', $array);
         return $concat;
     } else {
         foreach ($array as $arrayItem) {
@@ -112,10 +109,10 @@ function task6Create($filename)
 {
     $file = fopen($filename, 'w');
     fwrite($file, 'Hello again!');
+    fclose($file);
 }
 
 function task6Read($filename)
 {
-    $file = fopen($filename, 'r');
-    readfile($filename);
+    echo file_get_contents($filename);
 }
