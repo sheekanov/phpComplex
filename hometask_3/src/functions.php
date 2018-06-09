@@ -13,7 +13,9 @@ function task1($filename)
     foreach ($xml->Address as $addressItem) {
         echo '<div style="display: inline-block; border: 1px solid; margin-right: 50px;">';
         echo '<table>';
-        echo '<thead><tr><td style="font-weight: bold;">Address Type:</td><td>' . $addressItem->attributes()->Type . '</td></tr></thead>';
+        echo '<thead><tr>';
+        echo '<td style="font-weight: bold;">Address Type:</td><td>' . $addressItem->attributes()->Type . '</td>';
+        echo '</tr></thead>';
         echo '<tbody>';
         echo "<tr><td>Name:</td><td>$addressItem->Name</td>";
         echo "<tr><td>Street:</td><td>$addressItem->Street</td>";
@@ -33,7 +35,12 @@ function task1($filename)
     echo '<table  style="border: 1px solid;">';
     echo '<caption>Order Positions</caption>';
     echo '<thead ><tr>';
-    echo '<td>Part Number</td><td>Product Name</td><td>Quantity</td><td>Price</td><td>Shipment Date</td><td>Comments</td>';
+    echo '<td>Part Number</td>';
+    echo '<td>Product Name</td>';
+    echo '<td>Quantity</td>';
+    echo '<td>Price</td>';
+    echo '<td>Shipment Date</td>';
+    echo'<td>Comments</td>';
     echo '</tr></thead>';
     echo '<tbody style="text-align: center;">';
     foreach ($xml->Items->Item as $shipItem) {
@@ -106,7 +113,7 @@ function task2()
     $diff2 = array_diff_assoc($decodedOutput2, $decodedOutput);
 
     //создаем рекурсивную функцию для вывода в браузер массива любой вложенности
-    function arrayDisplay(array $array, bool $isRecursiveCall = false)
+    function arrayDisplay(array $array)
     {
         $recurs = 0;
         foreach ($array as $key => $value) {
