@@ -1,6 +1,8 @@
 <?php
 //Скрипт обработки формы заказа
 
+require('db_login.php'); // переменные окружения
+
 //Считываем значения из элементов формы в переменные
 $email = $_POST['email'];
 $name = $_POST['name'];
@@ -30,7 +32,7 @@ if (empty($email)) {
 //устанавливаем соединение с БД и подготавливаем запросы
 
 try {
-    $db = new PDO('mysql:host=localhost;dbname=burger', 'root', '');
+    $db = new PDO("mysql:host=localhost;dbname=$dbname", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $custSelect = $db->prepare('SELECT * FROM customers WHERE email = :email;');

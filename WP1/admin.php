@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/admin.css">
     <?php
+    require('db_login.php'); //переменные окружения
     try { //готовим запросы на поиск покупателей и заказов
-        $db = new PDO('mysql:host=localhost;dbname=burger', 'root', '');
+        $db = new PDO("mysql:host=localhost;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $custSelect = $db->prepare('SELECT id, email, name, tel FROM customers');
