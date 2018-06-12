@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Главная страница
-    </title>
+    <title>Админка сайта</title>
     <link rel="stylesheet" href="css/vendors.min.css">
     <link rel="stylesheet" href="css/main.min.css">
     <link rel="stylesheet" href="css/admin.css">
     <?php
-    try {
+    try { //готовим запросы на поиск покупателей и заказов
         $db = new PDO('mysql:host=localhost;dbname=burger', 'root', '');
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -19,8 +18,7 @@
         $orderSelect = $db->prepare('SELECT id, customer_id, street, house, corp, appt, floor, payment, callback, comment FROM orders');
         $orderSelect->setFetchMode(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-        $response['success'] = 0;
-        $response['message'] = 'Ошибка на стадии подключения к БД и подготовки запросов. ' . $e->getMessage();
+        echo 'Ошибка на стадии подключения к БД и подготовки запросов. ' . $e->getMessage();
     }
 
     try {
@@ -29,8 +27,7 @@
         $customers = $custSelect->fetchAll();
         $orders = $orderSelect->fetchAll();
     } catch (PDOException $e) {
-        $response['success'] = 0;
-        $response['message'] = 'Ошибка на стадии выполнения запросов. ' . $e->getMessage();
+        echo 'Ошибка на стадии выполнения запросов. ' . $e->getMessage();
     }
     ?>
 </head>
