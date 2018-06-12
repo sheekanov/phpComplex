@@ -17,7 +17,7 @@ $(document).ready(function(){
                 if (jsoned.success){ //если скрипт отработал удачно, очищаем поля ввода и показываем попап с успехом. В консоль пишем сообщение сервера.
                     console.log(jsoned.message);
                     $('#success').addClass("popup__active");
-                    $('#order-form').reset();
+                    $('#order-form')[0].reset();
                 } else { //если скрипт отработал с ошибкой, показываем попап с ошибкой. В консоль пишем сообщение сервера.
                     console.log(jsoned.message);
                     $('#error').addClass("popup__active");

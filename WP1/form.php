@@ -10,8 +10,8 @@ $tel = $_POST['tel'];
 $street = $_POST['street'];
 $house = $_POST['house'];
 $corp = $_POST['corp'];
-$appt = $_POST['appt'];
-$floor = $_POST['floor'];
+$appt = (int)$_POST['appt'];
+$floor = (int)$_POST['floor'];
 $payment = $_POST['payment'];
 $comment = $_POST['comment'];
 
