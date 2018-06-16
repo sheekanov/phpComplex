@@ -6,7 +6,7 @@ require('db_login.php'); // переменные окружения
 //Защищаемся от возможных xss атак
 
 foreach ($_POST as $key => $value){
-    $data[$key] = strip_tags($value); //http://remote-server/1.php onload=alert()
+    $data[$key] = strip_tags($value);
     $data[$key] = htmlspecialchars($data[$key], ENT_QUOTES);
 }
 
