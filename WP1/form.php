@@ -3,17 +3,24 @@
 
 require('db_login.php'); // переменные окружения
 
+//Защищаемся от возможных xss атак
+
+foreach ($_POST as $key => $value){
+    $data[$key] = strip_tags($value); //http://remote-server/1.php onload=alert()
+    $data[$key] = htmlspecialchars($data[$key], ENT_QUOTES);
+}
+
 //Считываем значения из элементов формы в переменные
-$email = $_POST['email'];
-$name = $_POST['name'];
-$tel = $_POST['tel'];
-$street = $_POST['street'];
-$house = $_POST['house'];
-$corp = $_POST['corp'];
-$appt = (int)$_POST['appt'];
-$floor = (int)$_POST['floor'];
-$payment = $_POST['payment'];
-$comment = $_POST['comment'];
+$email = $data['email'];
+$name = $data['name'];
+$tel = $data['tel'];
+$street = $data['street'];
+$house = $data['house'];
+$corp = $data['corp'];
+$appt = (int)$data['appt'];
+$floor = (int)$data['floor'];
+$payment = $data['payment'];
+$comment = $data['comment'];
 
 if ($_POST['callback']) {
     $callback = 0;
