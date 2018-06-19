@@ -9,42 +9,53 @@ use app\Models\User;
 
 class login extends MainController
 {
-    protected $user;
-    protected $loginSuccess;
-    protected $message;
-
-    public function __construct()
+    public function index()
     {
-        parent::__construct();
+        $this->view->render('login', []);
+    }
 
-        $loginName = $_POST['loginName'];
-        $registerName = $_POST['registerName'];
-        $registerAge = (int)$_POST['registerAge'];
-        $user = new User();
+    public function send()
+    {
+        $name = $_POST['loginName'];
+        $userid = $this->user->getIdByName($name);
 
-        if (!empty($loginName)) {
-            $userid = $user->getIdByName($loginName);
-            if (!empty($userid)) {
-                $_SESSION['userid'] = $userid;
-                header("Location: /profile");
-            } else {
-                $this->message = 'Пользователь c таким именем не существует. Попробуйте снова или зарегестрируйте нового пользователя';
-                $this->view->render('login', ['message' => $this->message]);
-            }
-        } elseif (!empty($registerName)) {
-            $userid = $user->createUser($registerName, $registerAge);
+        if (!empty($userid)) {
             $_SESSION['userid'] = $userid;
-            mkdir('uploads/user' . $userid . '/userpic/',0777,true);
-            mkdir('uploads/user' . $userid . '/files/',0777,true);
             header("Location: /profile");
         } else {
-            $this->view->render('login', []);
+            $message  = 'Пользователь c таким именем не существует. Попробуйте снова или зарегестрируйте нового пользователя';
+            $this->view->render('login', ['message' => $message]);
         }
     }
 
-    public function index()
+    public function create()
     {
-        echo 'lol';
+        $name = $_POST['registerName'];
+        $age = $_POST['registerAge'];
+        $response['success'] = 1;
+
+        if (empty($name)) {
+            $response['success'] = 0;
+            $response['message'] = 'Не указано имя пользователя';
+        }
+
+        if ($this->user->isNameExist($name)) {
+            $response['success'] = 0;
+            $response['message'] = 'Пользователь с именем ' .$name . '  существует';
+        }
+
+        if ($response['success']) {
+            $userid = $this->user->createUser($name, $age);
+            $_SESSION['userid'] = $userid;
+            mkdir('uploads/user' . $userid . '/userpic/', 0777, true);
+            mkdir('uploads/user' . $userid . '/files/', 0777, true);
+        }
+        echo json_encode($response, JSON_UNESCAPED_UNICODE);
     }
 
+    public function logOut()
+    {
+        unset($_SESSION['userid']);
+        header("Location: /login");
+    }
 }

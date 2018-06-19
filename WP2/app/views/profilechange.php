@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1140px">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Добро пожаловать в MVC!</title>
+    <title>Мой профиль</title>
     <link rel="stylesheet" href="/css/vendor.min.css">
 
     <link rel="stylesheet" href="/css/styles.min.css">
@@ -39,7 +39,7 @@
                 </nav>
             </aside>
             <main class="main">
-                <div class="info">
+                <form class="info" method="POST" action="/profile/update" enctype="multipart/form-data">
                     <div class="info__left">
                         <div class="info__pic-wrapper">
                             <div class="info__pic-block">
@@ -47,28 +47,39 @@
                             </div>
                         </div>
                         <div class="info__change">
-                            <a href="/profile/update" class="info__change-link">Изменить личные данные</a>
+                            <label for="changeUserpic" class="info__change-userpic-label">Загрузить фото</label>
+                            <input type="file" class="info__change-userpic" id="changeUserpic" name="changeUserpic">
                         </div>
                     </div>
                     <div class="info__right">
                         <table class="info__table">
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Имя:</td>
-                                <td class="info__valuecol"><?php echo $data['name']; ?></td>
+                                <td class="info__valuecol">
+                                    <input type="text" class="info__change-name" id="changeName" name="changeName" value="<?php echo $data['name']; ?>">
+                                    <span class="info__change-name-error"><?php echo $data['message']; ?></span>
+                                </td>
                             </tr>
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Возраст:</td>
-                                <td class="info__valuecol"><?php echo $data['age']; ?></td>
+                                <td class="info__valuecol">
+                                    <input type="text" class="info__change-age" id="changeAge" name="changeAge" value="<?php echo $data['age']; ?>">
+                                </td>
                             </tr>
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Обо мне:</td>
                                 <td class="info__valuecol">
-                                    <pre><?php echo $data['about']; ?></pre>
+                                    <textarea name="changeAbout" id="changeAbout" class="info__change-about"><?php echo $data['about']; ?></textarea>
                                 </td>
                             </tr>
                         </table>
+                        <div class="info__change-buttons">
+                            <input type="submit" class="info__change-submit" id="changeSubmit">
+                            <label for="changeSubmit" class="info__change-submit-label">Сохранить</label>
+                            <a href="/profile" class="info__change-reset">Не сохранять</a>
+                        </div>
                     </div>
-                </div>
+                </form>
             </main>
         </div>
     </div>

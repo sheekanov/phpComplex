@@ -9,38 +9,59 @@ use app\Models\User;
 
 class profile extends MainController
 {
-    protected $user;
-
     public function __construct()
     {
         parent::__construct();
 
-        $this->user = new User();
+        $sessionCheck = $this->checkUserSession();
 
-        if (isset($_SESSION['userid'])) {
-            $res = $this->user->setUserId($_SESSION['userid']);
-            if ($res) {
-                if (empty($_POST)) {
-                    $userData = $this->user->getUserData();
-                    $this->view->render('profile', $userData[0]);
-                }
-            } else {
-                header("Location: login");
-            }
-        } else {
-            header("Location: login");
+        if (!$sessionCheck) {
+            header("Location: /login");
         }
     }
 
-    public function updateProfile()
+    public function index()
     {
-        $name = $_POST['changeName'];
-        $age = $_POST['changeAge'];
-        $about = $_POST['changeAbout'];
-        $file = $_FILES['changeUserpic'];
-        $photo = 'uploads\user' . $this->user->getUserId() . '\userpic\\' . $file['name'];
-        move_uploaded_file($file['tmp_name'], getcwd() .'\\'. $photo);
-        $this->user->updateUserData($name, $age, $about, $photo);
-        header("Location: /profile");
+        $data = $this->user->getUserData();
+        $this->view->render('profile', $data);
+    }
+
+    public function update()
+    {
+        $message = '';
+        $referRoute = explode('/', $_SERVER['HTTP_REFERER']);
+
+        if (array_pop($referRoute) == 'update') {
+            $params['name'] = $_POST['changeName'];
+            $params['age'] = (int)$_POST['changeAge'];
+            $params['about'] = $_POST['changeAbout'];
+            $file = $_FILES['changeUserpic'];
+            $currentUserData = $this->user->getUserData();
+            $success = 1;
+
+            if (empty($params['name'])) {
+                $success = 0;
+                $message = 'Имя пользователя должно быть указано';
+            }
+
+            if ($this->user->isNameExist($params['name']) && $params['name'] != $currentUserData['name']) {
+                $success = 0;
+                $message = 'Пользователь с таким именем уже существует';
+            }
+
+            if (!empty($file['name']) && $success) {
+                $params['photo'] = '\uploads\user' . $this->user->getUserId() . '\userpic\\' . $file['name'];
+                move_uploaded_file($file['tmp_name'], getcwd() . $params['photo']);
+            }
+
+            if ($success) {
+                $this->user->updateUserData($params);
+                $message = 'Данные сохранены';
+            }
+        }
+
+        $data = $this->user->getUserData();
+        $data['message'] =$message;
+        $this->view->render('profilechange', $data);
     }
 }

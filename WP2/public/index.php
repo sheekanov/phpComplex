@@ -7,10 +7,7 @@ define('APP_ROUTE', getcwd() . '/../app/');
 $route = explode('/', $_SERVER['REQUEST_URI']);
 
 $controllerName = 'profile';
-$methodName = 'index()';
-
-echo '<pre>';
-print_r($route);
+$methodName = 'index';
 
 if (!empty($route[1])) {
     $controllerName = $route[1];

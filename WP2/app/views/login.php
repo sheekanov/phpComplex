@@ -26,7 +26,7 @@
             <div class="container">
                 <div class="login">
                     <div class="login__title">Пожалуйста, авторизуйтесь</div>
-                    <form action="login" class="login__form" method="POST">
+                    <form action="/login/send" class="login__form" method="POST">
                         <input type="text" class="login__name" name="loginName" placeholder="Имя пользователя">
                         <div class="login__error"><?php echo $data['message']; ?></div>
                         <input type="submit" class="login__submit">
@@ -42,15 +42,16 @@
 <div class="darkness"></div>
 <div class="register darknesspopup">
     <div class="register__title">Регистрация нового пользователя</div>
-    <form action="login" class="register__form" method="POST">
+    <form action="/login/create" class="register__form" method="POST" id="registerForm">
         <div class="register__name-block">
+            <div class="register__name-error" id="registerNameError"></div>
             <input type="text" class="register__name" name="registerName" placeholder="Имя пользователя">
         </div>
         <div class="register__age-block">
             <input type="text" class="register__age" name="registerAge" placeholder="Возраст">
         </div>
         <div class="register__btn-block">
-            <input type="submit" class="register__submit">
+            <input type="submit" class="register__submit" id="registerSubmit">
             <button class="register__close darknesspopup__close">Закрыть</button>
         </div>
     </form>

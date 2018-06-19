@@ -40,13 +40,22 @@ class User
         return $count[0]['count'];
     }
 
+    public function isNameExist($name)
+    {
+        $userSelect = $this->database->prepare('SELECT COUNT(*) as count FROM users WHERE name = :name;');
+        $userSelect->setFetchMode(PDO::FETCH_ASSOC);
+        $userSelect->execute([':name' => $name]);
+        $count = $userSelect->fetchAll();
+        return $count[0]['count'];
+    }
+
     public function getUserData()
     {
         $userSelect = $this->database->prepare('SELECT * FROM users WHERE id = :id;');
         $userSelect->setFetchMode(PDO::FETCH_ASSOC);
         $userSelect->execute([':id' => $this->userId]);
         $userData = $userSelect->fetchAll();
-        return $userData;
+        return $userData[0];
     }
 
     public function getIdByName($name)
@@ -66,10 +75,16 @@ class User
         return $this->getIdByName($name);
     }
 
-    public function updateUserData($name, $age, $about, $photo)
+    public function updateUserData($params)
     {
-        $userUpdate = $this->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo WHERE id = :id');
-        $userUpdate->execute([':name' => $name, ':age' => $age, ':id' => $this->userId, ':about' =>  $about, ':photo' => $photo]);
+        if (isset($params['photo'])) {
+            $userUpdate = $this->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo WHERE id = :id');
+            $userUpdate->execute([':name' => $params['name'], ':age' => $params['age'], ':id' => $this->userId, ':about' => $params['about'], ':photo' => $params['photo']]);
+        } else {
+            $userUpdate = $this->database->prepare('UPDATE users SET name = :name, age = :age, about = :about WHERE id = :id');
+            $userUpdate->execute([':name' => $params['name'], ':age' => $params['age'], ':id' => $this->userId, ':about' =>  $params['about']]);
+        }
+
         return true; //TODO сделать возврат в зависимости от успеха
     }
 }
