@@ -1,34 +1,28 @@
 <?php
 session_start();
 
-
 define('APP_ROUTE', getcwd() . '/../app/');
+
+require_once '../vendor/autoload.php';
 
 $route = explode('/', $_SERVER['REQUEST_URI']);
 
-$controllerName = 'profile';
+$controllerName = 'Profile';
 $methodName = 'index';
 
 if (!empty($route[1])) {
-    $controllerName = $route[1];
+    $controllerName = ucfirst($route[1]);
 }
 
 if (!empty($route[2])) {
     $methodName = $route[2];
 }
-$classname = 'app\\Controllers\\' . $controllerName;
-$filename = APP_ROUTE . 'Controllers/' . $controllerName . '.php';
+$classname = 'App\\Controllers\\' . $controllerName;
 try {
-    if (file_exists($filename)) {
-        require_once $filename;
-    } else {
-        throw new Exception('Файл контроллера ' . $controllerName . ' не найден');
-    }
-
     if (class_exists($classname)) {
         $controller = new $classname();
     } else {
-        throw new Exception('В файле ' . $filename . ' не найден класс ' . $controllerName);
+        throw new Exception('Не найден класс ' . $controllerName);
     }
 
     if (method_exists($controller, $methodName)) {

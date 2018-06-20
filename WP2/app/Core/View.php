@@ -1,5 +1,5 @@
 <?php
-namespace app\Core;
+namespace App\Core;
 
 class View
 {
@@ -17,6 +17,6 @@ class View
 
     public function renderError(string $filename, array $data)
     {
-        require_once __DIR__."/../Errors/".$filename.".php";
+        require_once __DIR__ . "/../errors/" .$filename.".php";
     }
 }

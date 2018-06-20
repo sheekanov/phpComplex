@@ -1,0 +1,17 @@
+{
+    "name": "sheekanov/mvc",
+    "description": "filemanager mvc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Evgeny Shikanov",
+            "email": "sheekanov@gmail.com"
+        }
+    ],
+    "autoload": {
+      "psr-4": {
+          "App\\": "app/"
+      }
+    },
+    "require": {}
+}

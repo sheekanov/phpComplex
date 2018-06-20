@@ -1,13 +1,9 @@
 <?php
-namespace app\Controllers;
+namespace App\Controllers;
 
-require_once __DIR__ .  '/../Core/MainController.php';
-require_once __DIR__ . '/../Models/User.php';
+use App\Core\MainController;
 
-use app\Core\MainController;
-use app\Models\User;
-
-class profile extends MainController
+class Profile extends MainController
 {
     public function __construct()
     {

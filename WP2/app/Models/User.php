@@ -1,17 +1,19 @@
 <?php
-namespace app\Models;
+namespace App\Models;
 
 use PDO;
+use App\Core\Config;
 
 class User
 {
-    protected $userId;
 
     protected $database;
 
+    protected $userId;
+
     public function __construct()
     {
-        $this->database = new PDO("mysql:host=localhost;dbname=mvc", 'root', '');
+        $this->database = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
         $this->database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
