@@ -12,13 +12,12 @@ class MainController
     public function __construct()
     {
         $this->view = new View();
-        $this->user = new User();
     }
 
     protected function checkUserSession()
     {
         if (isset($_SESSION['userid'])) {
-            if ($this->user->setUserId($_SESSION['userid'])) {
+            if (User::isIdExist($_SESSION['userid'])) {
                 return true;
             } else {
                 return false;

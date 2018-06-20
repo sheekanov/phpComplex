@@ -9,82 +9,86 @@ class User
 
     protected $database;
 
-    protected $userId;
+    private $id;
+    public $name;
+    public $age;
+    public $about;
+    public $photo;
 
-    public function __construct()
+    public function __construct($name, $age, $about = null, $photo = null)
     {
         $this->database = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
         $this->database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->name = $name;
+        $this->age = $age;
+        $this->about = $about;
+        $this->photo = $photo;
     }
 
-    public function setUserId($id)
+    public function getId()
     {
-        if (!empty($this->isExist($id))) {
-            $this->userId = $id;
-            return true;
-        } else {
-            return false;
-        }
+        return $this->id;
     }
 
-
-    public function getUserId()
+    //функция для внутреннего использования, чтоб код не плодить
+    protected static function executeQuery($query, $params)
     {
-        return $this->userId;
+        $db = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
+        $db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = $db->prepare($query);
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $query->execute($params);
+        $result = $query->fetchAll();
+        return $result;
     }
-
-    public function isExist($id)
+    //статический метод - инициализация нового объекта User по Id
+    public static function getUserById($id)
     {
-        $userSelect = $this->database->prepare('SELECT COUNT(*) as count FROM users WHERE id = :id;');
-        $userSelect->setFetchMode(PDO::FETCH_ASSOC);
-        $userSelect->execute([':id' => $id]);
-        $count = $userSelect->fetchAll();
-        return $count[0]['count'];
+        $userData = static::executeQuery('SELECT * FROM users WHERE id = :id;', [':id' => $id]);
+
+        $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+        $user->id = $userData[0]['id'];
+
+        return $user;
     }
-
-    public function isNameExist($name)
+    //статический метод - инициализация нового объекта User по Name
+    public static function getUserByName($name)
     {
-        $userSelect = $this->database->prepare('SELECT COUNT(*) as count FROM users WHERE name = :name;');
-        $userSelect->setFetchMode(PDO::FETCH_ASSOC);
-        $userSelect->execute([':name' => $name]);
-        $count = $userSelect->fetchAll();
-        return $count[0]['count'];
+        $userData = static::executeQuery('SELECT * FROM users WHERE name = :name;', [':name' => $name]);
+
+        $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+        $user->id = $userData[0]['id'];
+
+        return $user;
     }
-
-    public function getUserData()
+    //статический метод - проверка существует ли пользователь с заданным именем
+    public static function isNameExist($name)
     {
-        $userSelect = $this->database->prepare('SELECT * FROM users WHERE id = :id;');
-        $userSelect->setFetchMode(PDO::FETCH_ASSOC);
-        $userSelect->execute([':id' => $this->userId]);
-        $userData = $userSelect->fetchAll();
-        return $userData[0];
+        $userData = static::executeQuery('SELECT COUNT(*) as count FROM users WHERE name = :name;', [':name' => $name]);
+        $count = $userData[0]['count'];
+
+        return $count;
     }
-
-    public function getIdByName($name)
+    //статический метод - проверка существует ли пользователь с заданным id
+    public static function isIdExist($id)
     {
-        $userSelect = $this->database->prepare('SELECT id FROM users WHERE name = :name;');
-        $userSelect->setFetchMode(PDO::FETCH_ASSOC);
-        $userSelect->execute([':name' => $name]);
-        $userData = $userSelect->fetchAll();
-        return $userData[0]['id'];
+        $userData = static::executeQuery('SELECT COUNT(*) as count FROM users WHERE id = :id;', [':id' => $id]);
+        $count = $userData[0]['count'];
+
+        return $count;
     }
-
-    public function createUser($name, $age)
+    //сохранение пользователя в БД. Если у пользователя задан id (т.е. он получен через статический метод класса, а значит пользователь существует в БД), то данные в БД просто обновляются.
+    //Иначе (если пользователь создан через new) - новый пользователь добавляется в БД, а вызывающему объекту присваивается id.
+    public function save()
     {
-        $userInsert = $this->database->prepare('INSERT INTO users (name, age) VALUES (:name, :age)');
-        $userInsert->execute([':name' => $name, ':age' => $age]);
-
-        return $this->getIdByName($name);
-    }
-
-    public function updateUserData($params)
-    {
-        if (isset($params['photo'])) {
+        if ($this->id) {
             $userUpdate = $this->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo WHERE id = :id');
-            $userUpdate->execute([':name' => $params['name'], ':age' => $params['age'], ':id' => $this->userId, ':about' => $params['about'], ':photo' => $params['photo']]);
+            $userUpdate->execute([':name' => $this->name, ':age' => $this->age, ':id' => $this->id, ':about' => $this->about, ':photo' => $this->photo]);
+
         } else {
-            $userUpdate = $this->database->prepare('UPDATE users SET name = :name, age = :age, about = :about WHERE id = :id');
-            $userUpdate->execute([':name' => $params['name'], ':age' => $params['age'], ':id' => $this->userId, ':about' =>  $params['about']]);
+            $userInsert = $this->database->prepare('INSERT INTO users (name, age) VALUES (:name, :age)');
+            $userInsert->execute([':name' => $this->name, ':age' => $this->age]);
+            $this->id = $this->database->lastInsertId('users');
         }
 
         return true; //TODO сделать возврат в зависимости от успеха
