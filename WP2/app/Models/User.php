@@ -2,9 +2,9 @@
 namespace App\Models;
 
 use PDO;
-use App\Core\Config;
+use App\Models\DBModel;
 
-class User
+class User extends DBModel
 {
 
     protected $database;
@@ -17,8 +17,8 @@ class User
 
     public function __construct($name, $age, $about = null, $photo = null)
     {
-        $this->database = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
-        $this->database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        parent::__construct();
+
         $this->name = $name;
         $this->age = $age;
         $this->about = $about;
@@ -30,21 +30,10 @@ class User
         return $this->id;
     }
 
-    //функция для внутреннего использования, чтоб код не плодить
-    protected static function executeQuery($query, $params)
-    {
-        $db = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
-        $db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = $db->prepare($query);
-        $query->setFetchMode(PDO::FETCH_ASSOC);
-        $query->execute($params);
-        $result = $query->fetchAll();
-        return $result;
-    }
     //статический метод - инициализация нового объекта User по Id
     public static function getUserById($id)
     {
-        $userData = static::executeQuery('SELECT * FROM users WHERE id = :id;', [':id' => $id]);
+        $userData = DBModel::executeSelectQuery('SELECT * FROM users WHERE id = :id;', [':id' => $id]);
 
         $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
         $user->id = $userData[0]['id'];
@@ -54,7 +43,7 @@ class User
     //статический метод - инициализация нового объекта User по Name
     public static function getUserByName($name)
     {
-        $userData = static::executeQuery('SELECT * FROM users WHERE name = :name;', [':name' => $name]);
+        $userData = DBModel::executeSelectQuery('SELECT * FROM users WHERE name = :name;', [':name' => $name]);
 
         $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
         $user->id = $userData[0]['id'];
@@ -64,7 +53,7 @@ class User
     //статический метод - проверка существует ли пользователь с заданным именем
     public static function isNameExist($name)
     {
-        $userData = static::executeQuery('SELECT COUNT(*) as count FROM users WHERE name = :name;', [':name' => $name]);
+        $userData = DBModel::executeSelectQuery('SELECT COUNT(*) as count FROM users WHERE name = :name;', [':name' => $name]);
         $count = $userData[0]['count'];
 
         return $count;
@@ -72,7 +61,7 @@ class User
     //статический метод - проверка существует ли пользователь с заданным id
     public static function isIdExist($id)
     {
-        $userData = static::executeQuery('SELECT COUNT(*) as count FROM users WHERE id = :id;', [':id' => $id]);
+        $userData = DBModel::executeSelectQuery('SELECT COUNT(*) as count FROM users WHERE id = :id;', [':id' => $id]);
         $count = $userData[0]['count'];
 
         return $count;

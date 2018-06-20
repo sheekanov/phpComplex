@@ -17,6 +17,12 @@ if (!empty($route[1])) {
 if (!empty($route[2])) {
     $methodName = $route[2];
 }
+
+$questionPos = strpos($methodName, '?');
+if ($questionPos) {
+    $methodName = substr($methodName, 0, $questionPos);
+}
+
 $classname = 'App\\Controllers\\' . $controllerName;
 try {
     if (class_exists($classname)) {

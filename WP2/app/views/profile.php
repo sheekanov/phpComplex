@@ -30,7 +30,7 @@
                             <a href="/profile" class="navigation__link">МОЙ ПРОФИЛЬ</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="" class="navigation__link">МОИ ФАЙЛЫ</a>
+                            <a href="/files" class="navigation__link">МОИ ФАЙЛЫ</a>
                         </li>
                         <li class="navigation__item">
                             <a href="" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
