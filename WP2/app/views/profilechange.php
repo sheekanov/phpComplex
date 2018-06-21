@@ -33,7 +33,7 @@
                             <a href="/files" class="navigation__link">МОИ ФАЙЛЫ</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
+                            <a href="/users" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
                         </li>
                     </ul>
                 </nav>

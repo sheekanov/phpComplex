@@ -4,13 +4,13 @@ namespace App\Controllers;
 use App\Core\MainController;
 use App\Models\File;
 
-class Viewer extends MainController
+class PublicViewer extends MainController
 {
-    public function show()
+    public function showImage()
     {
         $fileId = $_GET['id'];
         $file = File::getFileById($fileId);
         $data=['file' => $file];
-        $this->view->render('viewer', $data);
+        $this->view->render('showImage', $data);
     }
 }

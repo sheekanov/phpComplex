@@ -5,7 +5,7 @@ use PDO;
 use App\Core\Config;
 use App\Models\DBModel;
 
-class File extends DBModel
+class File
 {
     private $id;
     protected $owner;
@@ -13,12 +13,8 @@ class File extends DBModel
     public $description;
     private $url;
 
-    protected $database;
-
     public function __construct(User $owner, $filename, $description)
     {
-        parent::__construct();
-
         $this->owner = $owner;
         $this->filename = $filename;
         $this->description = $description;
@@ -36,26 +32,36 @@ class File extends DBModel
 
     public function upload($source)
     {
+        $db = new DBModel();
+
         $userid = $this->owner->getId();
-        $destination = Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
-        $url = '\uploads\user' . $userid . '\files\\' . $this->filename;
+        $destination = getcwd() . Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
+        $url = Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
         move_uploaded_file($source, $destination);
-        $fileInsert = $this->database->prepare('INSERT INTO files (user_id, filename, description, url) VALUES (:userid, :filename, :description, :url)');
+        $fileInsert = $db->database->prepare('INSERT INTO files (user_id, filename, description, url) VALUES (:userid, :filename, :description, :url)');
         $fileInsert->execute([':userid' => $userid, ':filename' => $this->filename, ':description' => $this->description, ':url' => $url]);
-        $this->id = $this->database->lastInsertId('files');
+        $this->id = $db->database->lastInsertId('files');
         $this->url = $destination;
+
+        $db = null;
     }
 
     public function delete()
     {
-        unlink(__DIR__ . '\..\..\public' . $this->url);
-        $fileDelete = $this->database->prepare('DELETE from files WHERE id = :id');
+        $db = new DBModel();
+
+        unlink(getcwd() . $this->url);
+        $fileDelete = $db->database->prepare('DELETE from files WHERE id = :id');
         $fileDelete->execute([':id' => $this->id]);
+
+        $db = null;
     }
 
     public static function getAllUserFiles(User $user)
     {
-        $results = DBModel::executeSelectQuery('SELECT * FROM files WHERE user_id = :userid ;', [':userid' => $user->getId()]);
+        $db = new DBModel();
+        $results = $db->executeSelectQuery('SELECT * FROM files WHERE user_id = :userid ;', [':userid' => $user->getId()]);
+        $db=null;
 
         $files =[];
 
@@ -69,11 +75,14 @@ class File extends DBModel
         }
 
         return $files;
+
     }
 
     public static function getFileById($id)
     {
-        $results = DBModel::executeSelectQuery('SELECT * FROM files WHERE id = :id ;', [':id' => $id]);
+        $db = new DBModel();
+        $results = $db->executeSelectQuery('SELECT * FROM files WHERE id = :id ;', [':id' => $id]);
+        $db = null;
 
         $owner = User::getUserById($results[0]['user_id']);
         $file = new File($owner, $results[0]['filename'], $results[0]['description']);

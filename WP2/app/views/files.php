@@ -30,10 +30,10 @@
                             <a href="/profile" class="navigation__link">МОЙ ПРОФИЛЬ</a>
                         </li>
                         <li class="navigation__item navigation__item--active">
-                            <a href="" class="navigation__link">МОИ ФАЙЛЫ</a>
+                            <a href="/files" class="navigation__link">МОИ ФАЙЛЫ</a>
                         </li>
                         <li class="navigation__item">
-                            <a href="" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
+                            <a href="/users" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
                         </li>
                     </ul>
                 </nav>
@@ -57,31 +57,31 @@
 
                     </form>
                 </div>
-                <table class="files__table">
-                    <thead class="files__table-head">
-                    <tr class="files__row">
-                        <td class="files_head-col files__head-col--delete">Удалить</td>
-                        <td class="files_head-col files__head-col--preview">Превью</td>
-                        <td class="files_head-col files__head-col--name">Название</td>
-                        <td class="files_head-col files__head-col--desc">Описание</td>
+                <table class="table">
+                    <thead class="table__table-head">
+                    <tr class="table__row">
+                        <td class="table_head-col table__head-col--delete">Удалить</td>
+                        <td class="table_head-col table__head-col--preview">Превью</td>
+                        <td class="table_head-col table__head-col--name">Название</td>
+                        <td class="table_head-col table__head-col--desc">Описание</td>
                     </tr>
                     </thead>
-                    <tbody class="files__table-body">
+                    <tbody class="table__table-body">
 
                     <?php foreach ($data['files'] as $file) : ?>
-                    <tr class="files__row" id="<?php echo $file->getId(); ?>">
-                        <td class="files__delete-col">
-                            <a href="/Files/delete?id=<?php echo $file->getId()?>" class="files__delete-link">X</a>
+                    <tr class="table__row" id="<?php echo $file->getId(); ?>">
+                        <td class="table__delete-col">
+                            <a href="/Files/delete?id=<?php echo $file->getId()?>" class="table__delete-link">X</a>
                         </td>
-                        <td class="files__preview-col">
-                            <div class="files__preview-block">
-                                <a href="" class="files__preview-link">
-                                    <img src="<?php echo $file->getUrl(); ?>" alt="" class="files__preview-img">
+                        <td class="table__preview-col">
+                            <div class="table__preview-block">
+                                <a href="/PublicViewer/showImage?id=<?php echo $file->getId()?>" class="table__preview-link">
+                                    <img src="<?php echo $file->getUrl(); ?>" alt="" class="table__preview-img">
                                 </a>
                             </div>
                         </td>
-                        <td class="files__name-col"><a href="/Viewer/show?id=<?php echo $file->getId()?>" class="files__show-link">(Открыть) <?php echo $file->filename; ?></a></td>
-                        <td class="files__desc-col"><?php echo $file->description; ?></td>
+                        <td class="table__name-col"><a href="/PublicViewer/showImage?id=<?php echo $file->getId()?>" class="table__show-link">(Открыть) <?php echo $file->filename; ?></a></td>
+                        <td class="table__desc-col"><?php echo $file->description; ?></td>
                     </tr>
                     <?php endforeach; ?>
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Core\Config;
 use App\Core\MainController;
 use App\Models\User;
 
@@ -45,8 +46,8 @@ class Login extends MainController
             $user = new User($name, $age);
             $user->save();
             $_SESSION['userid'] = $user->getId();
-            mkdir('uploads/user' . $user->getId() . '/userpic/', 0777, true);
-            mkdir('uploads/user' . $user->getId() . '/files/', 0777, true);
+            mkdir(getcwd() . Config::UPLOAD_DIR . '\user' . $user->getId() . '\userpic\\', 0777, true);
+            mkdir(getcwd() . Config::UPLOAD_DIR . '\user' . $user->getId() . '\files\\', 0777, true);
         }
         echo json_encode($response, JSON_UNESCAPED_UNICODE);
     }

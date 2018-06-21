@@ -18,6 +18,12 @@ if (!empty($route[2])) {
     $methodName = $route[2];
 }
 
+
+$questionPos = strpos($controllerName, '?');
+if ($questionPos) {
+    $controllerName = substr($controllerName, 0, $questionPos);
+}
+
 $questionPos = strpos($methodName, '?');
 if ($questionPos) {
     $methodName = substr($methodName, 0, $questionPos);
@@ -37,6 +43,7 @@ try {
         throw new Exception('Не найден метод ' . $methodName);
     }
 } catch (Exception $e) {
+    echo $e->getFile() . '<br>';
     echo $e->getLine() . '<br>';
     echo $e->getMessage();
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1140px">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Добро пожаловать в MVC!</title>
+    <title>Профиль</title>
     <link rel="stylesheet" href="/css/vendor.min.css">
 
     <link rel="stylesheet" href="/css/styles.min.css">
@@ -26,13 +26,13 @@
             <aside class="aside">
                 <nav class="navigation">
                     <ul class="navigation__list">
-                        <li class="navigation__item navigation__item--active">
+                        <li class="navigation__item">
                             <a href="/profile" class="navigation__link">МОЙ ПРОФИЛЬ</a>
                         </li>
                         <li class="navigation__item">
                             <a href="/files" class="navigation__link">МОИ ФАЙЛЫ</a>
                         </li>
-                        <li class="navigation__item">
+                        <li class="navigation__item navigation__item--active">
                             <a href="/users" class="navigation__link">ВСЕ ПОЛЬЗОВАТЕЛИ</a>
                         </li>
                     </ul>
@@ -43,27 +43,24 @@
                     <div class="info__left">
                         <div class="info__pic-wrapper">
                             <div class="info__pic-block">
-                                <img src="<?php echo $data['photo']; ?>" alt="" class="info__userpic">
+                                <img src="<?php echo $data['user']->photo; ?>" alt="" class="info__userpic">
                             </div>
-                        </div>
-                        <div class="info__change">
-                            <a href="/profile/update" class="info__change-link">Изменить личные данные</a>
                         </div>
                     </div>
                     <div class="info__right">
                         <table class="info__table">
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Имя:</td>
-                                <td class="info__valuecol"><?php echo $data['name']; ?></td>
+                                <td class="info__valuecol"><?php echo $data['user']->name; ?></td>
                             </tr>
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Возраст:</td>
-                                <td class="info__valuecol"><?php echo $data['age']; ?></td>
+                                <td class="info__valuecol"><?php echo $data['user']->age; ?></td>
                             </tr>
                             <tr class="info__tablerow">
                                 <td class="info__titlecol">Обо мне:</td>
                                 <td class="info__valuecol">
-                                    <pre><?php echo $data['about']; ?></pre>
+                                    <pre><?php echo $data['user']->about; ?></pre>
                                 </td>
                             </tr>
                         </table>

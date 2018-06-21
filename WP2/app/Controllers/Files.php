@@ -32,22 +32,25 @@ class Files extends MainController
     public function upload()
     {
         $receivedFile = $_FILES['uploadFile'];
-        if (empty($receivedFile)) {
+        $filename = $receivedFile['name'];
+
+        if (empty($filename)) {
             $message = 'Файл не выбран';
             $files = File::getAllUserFiles($this->user);
             $data['files'] = $files;
             $data['message'] = $message;
             $this->view->render('files', $data);
+        } else {
+            $description = $_POST['fileDescription'];
+
+            $file = new File($this->user, $filename, $description);
+            $fileSource = $receivedFile['tmp_name'];
+            $file->upload($fileSource);
+
+            header("Location: /files");
         }
 
-        $filename = $receivedFile['name'];
-        $description = $_POST['fileDescription'];
 
-        $file = new File($this->user, $filename, $description);
-        $fileSource = $receivedFile['tmp_name'];
-        $file->upload($fileSource);
-
-        header("Location: /files");
     }
 
     public function delete()
