@@ -3,7 +3,7 @@ namespace App\Core;
 
 use App\Models\User;
 
-class MainController
+class Viewer
 {
 
     protected $view;

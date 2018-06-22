@@ -1,10 +1,10 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\MainController;
+use App\Core\Viewer;
 use App\Models\User;
 
-class Users extends MainController
+class Users extends Viewer
 {
     public $user;
 
@@ -23,18 +23,28 @@ class Users extends MainController
 
     public function index()
     {
-        $sort = $_GET['sort'];
+        if (isset($_GET['sort'])) {
+            $sort = $_GET['sort'];
+            $data = User::getAllUsers($sort);
+        } else {
+            $data = User::getAllUsers();
+        }
 
-        $data = User::getAllUsers($sort);
 
         $this->view->render('users', $data);
     }
 
     public function showProfile()
     {
-        $fileId = $_GET['id'];
-        $user = User::getUserById($fileId);
-        $data=['user' => $user];
+        $userId = $_GET['id'];
+        $user = User::getUserById($userId);
+
+        if (!is_null($user)) {
+            $data=['user' => $user];
+
+        } else {
+            $data = ['user' => new User('Профиль не найден','0','Пользователь с Id=' .$userId . ' не существует' )];
+        }
         $this->view->render('showProfile', $data);
     }
 

@@ -1,16 +1,22 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\MainController;
+use App\Core\Viewer;
 use App\Models\File;
 
-class PublicViewer extends MainController
+class PublicViewer extends Viewer
 {
     public function showImage()
     {
         $fileId = $_GET['id'];
         $file = File::getFileById($fileId);
-        $data=['file' => $file];
+
+        if (!is_null($file)) {
+            $data = array('url' => $file->getUrl(), 'filename' => $file->filename);
+        } else {
+            $data = array('url' => '\assets\pic\decor\\picNotFound.jpg', 'filename' => 'Изображение не найдено');
+        }
+
         $this->view->render('showImage', $data);
     }
 }

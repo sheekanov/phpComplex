@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1140px">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?php echo $data['file']->filename; ?></title>
+    <title><?php echo $data['filename']; ?></title>
     <link rel="stylesheet" href="/css/vendor.min.css">
 
     <link rel="stylesheet" href="/css/styles.min.css">
@@ -23,7 +23,7 @@
             </div>
         </header>
         <main class="main-viewer">
-            <img src="<?php echo $data['file']->getUrl(); ?>" alt="" class="viewer">
+            <img src="<?php echo $data['url']; ?>" alt="" class="viewer">
         </main>
     </div>
 </div>

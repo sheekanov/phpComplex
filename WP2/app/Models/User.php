@@ -1,5 +1,9 @@
 <?php
 namespace App\Models;
+/*
+require_once 'DBModel.php';
+require_once '../Core/Config.php';
+*/
 
 use PDO;
 use App\Models\DBModel;
@@ -25,7 +29,7 @@ class User
         return $this->id;
     }
 
-    public static function getAllUsers($sort)
+    public static function getAllUsers($sort = 'DESC')
     {
         $db = new DBModel();
 
@@ -61,10 +65,14 @@ class User
         $userData = $db->executeSelectQuery('SELECT * FROM users WHERE id = :id;', [':id' => $id]);
         $db = null;
 
-        $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
-        $user->id = $userData[0]['id'];
+        if (empty($userData)) {
+            return null;
+        } else {
+            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+            $user->id = $userData[0]['id'];
 
-        return $user;
+            return $user;
+        }
     }
     //статический метод - инициализация нового объекта User по Name
     public static function getUserByName($name)
@@ -73,10 +81,14 @@ class User
         $userData = $db->executeSelectQuery('SELECT * FROM users WHERE name = :name;', [':name' => $name]);
         $db = null;
 
-        $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
-        $user->id = $userData[0]['id'];
+        if (empty($userData)) {
+            return null;
+        } else {
+            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+            $user->id = $userData[0]['id'];
 
-        return $user;
+            return $user;
+        }
     }
     //статический метод - проверка существует ли пользователь с заданным именем
     public static function isNameExist($name)

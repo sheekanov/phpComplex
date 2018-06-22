@@ -20,6 +20,11 @@ class File
         $this->description = $description;
     }
 
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -84,11 +89,15 @@ class File
         $results = $db->executeSelectQuery('SELECT * FROM files WHERE id = :id ;', [':id' => $id]);
         $db = null;
 
-        $owner = User::getUserById($results[0]['user_id']);
-        $file = new File($owner, $results[0]['filename'], $results[0]['description']);
-        $file->id = $results[0]['id'];
-        $file->url = $results[0]['url'];
+        if (empty($results)) {
+            return null;
+        } else {
+            $owner = User::getUserById($results[0]['user_id']);
+            $file = new File($owner, $results[0]['filename'], $results[0]['description']);
+            $file->id = $results[0]['id'];
+            $file->url = $results[0]['url'];
 
-        return $file;
+            return $file;
+        }
     }
 }

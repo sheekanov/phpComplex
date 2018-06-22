@@ -14,9 +14,4 @@ class View
     {
         require_once __DIR__."/../views/".$filename.".php";
     }
-
-    public function renderError(string $filename, array $data)
-    {
-        require_once __DIR__ . "/../errors/" .$filename.".php";
-    }
 }

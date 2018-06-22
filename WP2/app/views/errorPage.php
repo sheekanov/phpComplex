@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=1140px">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ошибка</title>
-    <link rel="stylesheet" href="css/vendor.min.css">
+    <link rel="stylesheet" href="/css/vendor.min.css">
 
-    <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="stylesheet" href="/css/styles.min.css">
 </head>
 <body>
 <div class="wrapper">
@@ -22,27 +22,16 @@
                 </div>
             </div>
         </header>
-        <main class="main-error">
+        <main class="main-errors">
             <div class="container">
+                <div class="errors">
+                    <h1 class="error__title">Ошибка <?php echo $data['errorCode']; ?></h1>
+                    <h2 class="error__subtitle"><?php  echo $data['errorDesc']; ?></h2>
+                    <div class="error__text"><?php  echo $data['userMessage']; ?></div>
+                </div>
             </div>
         </main>
     </div>
-</div>
-<div class="darkness"></div>
-<div class="register darknesspopup">
-    <div class="register__title">Регистрация нового пользователя</div>
-    <form action="" class="register__form">
-        <div class="register__name-block">
-            <input type="text" class="register__name" name="registerName" placeholder="Имя пользователя">
-        </div>
-        <div class="register__age-block">
-            <input type="text" class="register__age" name="registerAge" placeholder="Возраст">
-        </div>
-        <div class="register__btn-block">
-            <input type="submit" class="register__submit">
-            <button class="register__close darknesspopup__close">Закрыть</button>
-        </div>
-    </form>
 </div>
 <footer class="footer">
     <div class="container">
