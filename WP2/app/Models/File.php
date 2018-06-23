@@ -42,9 +42,9 @@ class File
         $userid = $this->owner->getId();
         $destination = getcwd() . Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
         $url = Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
-        move_uploaded_file($source, $destination);
         $fileInsert = $db->database->prepare('INSERT INTO files (user_id, filename, description, url) VALUES (:userid, :filename, :description, :url)');
         $fileInsert->execute([':userid' => $userid, ':filename' => $this->filename, ':description' => $this->description, ':url' => $url]);
+        move_uploaded_file($source, $destination);
         $this->id = $db->database->lastInsertId('files');
         $this->url = $destination;
 
@@ -55,9 +55,9 @@ class File
     {
         $db = new DBModel();
 
-        unlink(getcwd() . $this->url);
         $fileDelete = $db->database->prepare('DELETE from files WHERE id = :id');
         $fileDelete->execute([':id' => $this->id]);
+        unlink(getcwd() . $this->url);
 
         $db = null;
     }
@@ -80,7 +80,6 @@ class File
         }
 
         return $files;
-
     }
 
     public static function getFileById($id)

@@ -1,12 +1,5 @@
 <?php
 namespace App\Models;
-/*
-require_once 'DBModel.php';
-require_once '../Core/Config.php';
-*/
-
-use PDO;
-use App\Models\DBModel;
 
 class User
 {
@@ -15,19 +8,22 @@ class User
     public $age;
     public $about;
     public $photo;
+    public $password;
 
-    public function __construct($name, $age, $about = null, $photo = null)
+    public function __construct($name, $age, $password = null, $about = null, $photo = null)
     {
         $this->name = $name;
         $this->age = $age;
         $this->about = $about;
         $this->photo = $photo;
+        $this->password = $password;
     }
 
     public function getId()
     {
         return $this->id;
     }
+
 
     public static function getAllUsers($sort = 'DESC')
     {
@@ -48,7 +44,7 @@ class User
         $users = [];
 
         foreach ($userList as $userItem) {
-            $user = new User($userItem['name'], $userItem['age'], $userItem['about'], $userItem['photo']);
+            $user = new User($userItem['name'], $userItem['age'], $userItem['password'], $userItem['about'], $userItem['photo']);
             $user->id = $userItem['id'];
 
             $users[]=$user;
@@ -68,7 +64,7 @@ class User
         if (empty($userData)) {
             return null;
         } else {
-            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['password'], $userData[0]['about'], $userData[0]['photo']);
             $user->id = $userData[0]['id'];
 
             return $user;
@@ -84,7 +80,7 @@ class User
         if (empty($userData)) {
             return null;
         } else {
-            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['about'], $userData[0]['photo']);
+            $user = new User($userData[0]['name'], $userData[0]['age'], $userData[0]['password'], $userData[0]['about'], $userData[0]['photo']);
             $user->id = $userData[0]['id'];
 
             return $user;
@@ -116,15 +112,14 @@ class User
     {
         $db = new DBModel();
         if ($this->id) {
-            $userUpdate =$db->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo WHERE id = :id');
-            $userUpdate->execute([':name' => $this->name, ':age' => $this->age, ':id' => $this->id, ':about' => $this->about, ':photo' => $this->photo]);
+            $userUpdate =$db->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo, password = :password WHERE id = :id');
+            $userUpdate->execute([':name' => $this->name, ':age' => $this->age, ':id' => $this->id, ':about' => $this->about, ':photo' => $this->photo, ':password' => $this->password]);
         } else {
-            $userInsert = $db->database->prepare('INSERT INTO users (name, age) VALUES (:name, :age)');
-            $userInsert->execute([':name' => $this->name, ':age' => $this->age]);
+            $userInsert = $db->database->prepare('INSERT INTO users (name, age, password) VALUES (:name, :age, :password)');
+            $userInsert->execute([':name' => $this->name, ':age' => $this->age, ':password' => $this->password]);
             $this->id = $db->database->lastInsertId('users');
         }
 
         $db = null;
-        return true; //TODO сделать возврат в зависимости от успеха
     }
 }

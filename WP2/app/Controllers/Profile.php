@@ -2,26 +2,11 @@
 namespace App\Controllers;
 
 use App\Core\Config;
-use App\Core\Viewer;
+use App\Core\MainController;
 use App\Models\User;
 
-class Profile extends Viewer
+class Profile extends MainController
 {
-    public $user;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-        $sessionCheck = $this->checkUserSession();
-
-        if ($sessionCheck) {
-            $this->user = User::getUserById($_SESSION['userid']);
-        } else {
-            header("Location: /login");
-        }
-    }
-
     public function index()
     {
         $data = array('name' => $this->user->name, 'age' => $this->user->age, 'about' => $this->user->about, 'photo' => $this->user->photo);
@@ -75,19 +60,25 @@ class Profile extends Viewer
                 $message = 'Имя пользователя должно быть указано';
             }
 
-            if (User::isNameExist($newName) && $newName != $this->user->name) {
-                $success = 0;
-                $message = 'Пользователь с таким именем уже существует';
-            }
+            try {
+                if (User::isNameExist($newName) && $newName != $this->user->name) {
+                    $success = 0;
+                    $message = 'Пользователь с таким именем уже существует';
+                }
 
-            if ($success) {
-                $this->user->name = $newName;
-                $this->user->age = $newAge;
-                $this->user->about = $newAbout;
-                $this->user->photo = $newPhoto;
-                $this->user->save();
-                move_uploaded_file($file['tmp_name'], getcwd() . $newPhoto);
-                $message = 'Данные сохранены';
+                if ($success) {
+                    $this->user->name = $newName;
+                    $this->user->age = $newAge;
+                    $this->user->about = $newAbout;
+                    $this->user->photo = $newPhoto;
+                    $this->user->save();
+                    move_uploaded_file($file['tmp_name'], getcwd() . $newPhoto);
+                    $message = 'Данные сохранены';
+                }
+            } catch (\PDOException $e) {
+                $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
+                $error->toLog();
+                $message = $error->userMessage;
             }
         }
 

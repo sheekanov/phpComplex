@@ -15,7 +15,7 @@
         <header class="header">
             <div class="container">
                 <div class="header__left">
-                    <h1 class="header__title">Filemanager MVC</h1>
+                    <h1 class="header__title"><a href="/" class="header__title-link">Filemanager MVC</a></h1>
                 </div>
                 <div class="header__right">
                     <a href="/files" class="header__logout">Назад</a>

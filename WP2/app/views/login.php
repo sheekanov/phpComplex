@@ -15,7 +15,7 @@
         <header class="header">
             <div class="container">
                 <div class="header__left">
-                    <h1 class="header__title">Filemanager MVC</h1>
+                    <h1 class="header__title"><a href="/" class="header__title-link">Filemanager MVC</a></h1>
                 </div>
                 <div class="header__right">
                     <a href="" class="header__logout" style="display: none;">Выйти</a>
@@ -28,6 +28,7 @@
                     <div class="login__title">Пожалуйста, авторизуйтесь</div>
                     <form action="/login/send" class="login__form" method="POST">
                         <input type="text" class="login__name" name="loginName" placeholder="Имя пользователя">
+                        <input type="password" class="login__pass" name="loginPass" placeholder="Пароль">
                         <div class="login__error"><?php echo $data['message']; ?></div>
                         <input type="submit" class="login__submit">
                     </form>
@@ -46,6 +47,9 @@
         <div class="register__name-block">
             <div class="register__name-error" id="registerNameError"></div>
             <input type="text" class="register__name" name="registerName" placeholder="Имя пользователя">
+        </div>
+        <div class="register__pass-block">
+            <input type="password" class="register__pass" name="registerPass" placeholder="Пароль">
         </div>
         <div class="register__age-block">
             <input type="text" class="register__age" name="registerAge" placeholder="Возраст">

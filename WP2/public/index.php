@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-use \App\Core\Config;
-use \App\Errors\Error;
+use \App\Controllers\Error;
+use \App\Errors\RouterException;
 
 error_reporting(E_ALL);
-
-define('APP_ROUTE', getcwd() . '/../app/');
 
 require_once '../vendor/autoload.php';
 
@@ -40,29 +38,20 @@ try {
     if (class_exists($classname)) {
         $controller = new $classname();
     } else {
-        throw new Exception('Не найден класс ' . $classname, 404);
+        throw new RouterException('Не найден класс ' . $classname, 404);
     }
 
     if (method_exists($controller, $methodName)) {
         $controller->$methodName();
     } else {
-        throw new Exception('Не найден метод ' . $methodName, 404);
+        throw new RouterException('Не найден метод ' . $classname . '->' . $methodName . '()', 404);
     }
-} catch (Exception $e) {
+} catch (RouterException $e) {
     if ($controllerName != 'Favicon.ico') {
-        switch ($e->getCode()) {
-            case 404:
-                $error = new Error($e->getMessage(), $e);
-                $error->toErrorPage('Запрашиваемая Вами страница не найдена');
-                break;
-            default:
-                $error = new Error('Ошибка. Обратитесь к администратору', $e);
-                $error->toLog();
-                $error->toJson();
-        }
+            $error = new Error($e->getMessage(), $e);
+            header("HTTP/1.0 404 Not Found");
+            $error->toErrorPage('Запрашиваемая Вами страница не найдена');
     }
-
-
 }
 
 

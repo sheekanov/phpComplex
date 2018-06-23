@@ -15,7 +15,7 @@
         <header class="header">
             <div class="container">
                 <div class="header__left">
-                    <h1 class="header__title">Filemanager MVC</h1>
+                    <h1 class="header__title"><a href="/" class="header__title-link">Filemanager MVC</a></h1>
                 </div>
                 <div class="header__right">
                     <a href="login/logout" class="header__logout">Выйти</a>
@@ -49,6 +49,7 @@
                             <a href="/users?sort=ASC" class="table__sort-link">&#11014;</a>
                             <a href="/users?sort=DESC" class="table__sort-link">&#11015;</a>
                         </td>
+                        <td class="table_head-col table__head-col--userAdult">Совершеннолетие</td>
                         <td class="table_head-col table__head-col--userAbout">О себе</td>
                     </tr>
                     </thead>
@@ -56,12 +57,15 @@
                     <?php foreach ($data as $user) : ?>
                     <tr class="table__row">
                         <td class="table__col">
-                            <a href="/Users/showProfile?id=<?php echo $user->getId();?>" class="table__user-name-link"><?php echo $user->name;?></a>
+                            <a href="/Users/showProfile?id=<?php echo $user['user']->getId();?>" class="table__user-name-link"><?php echo $user['user']->name;?></a>
                         </td>
-                        <td class="table__col"><?php echo $user->age;?></td>
+                        <td class="table__col"><?php echo $user['user']->age;?></td>
+                        <td class="table__col">
+                            <?php echo $user['adult'];?>
+                        </td>
                         <td class="table__col">
                             <div class="table__about-block">
-                            <?php echo $user->about;?></td>
+                            <?php echo $user['user']->about;?></td>
                             </div>
                         </td>
                     </tr>

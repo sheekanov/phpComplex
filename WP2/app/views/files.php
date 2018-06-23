@@ -15,7 +15,7 @@
         <header class="header">
             <div class="container">
                 <div class="header__left">
-                    <h1 class="header__title">Filemanager MVC</h1>
+                    <h1 class="header__title"><a href="/" class="header__title-link">Filemanager MVC</a></h1>
                 </div>
                 <div class="header__right">
                     <a href="login/logout" class="header__logout">Выйти</a>
@@ -41,7 +41,7 @@
             <main class="main">
                 <div class="files__upload-block">
                     <div class="files__title">Загрузить файл</div>
-                    <div class="files__text">Допустимые форматы: jpg, png</div>
+                    <div class="files__text">Допустимые форматы: jpg, png, gif</div>
                     <div class="files__error-message"><?php echo  $data['message']; ?></div>
                     <form action="/files/upload" class="files__upload-form" enctype="multipart/form-data" method="POST">
                         <div class="files__form-row">

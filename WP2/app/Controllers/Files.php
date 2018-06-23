@@ -1,33 +1,29 @@
 <?php
 namespace App\Controllers;
 
-use App\Core\Viewer;
-use App\Models\User;
+use App\Core\MainController;
 use App\Models\File;
 
-class Files extends Viewer
+class Files extends MainController
 {
-    public $user;
-
+    private $userFiles;
     public function __construct()
     {
         parent::__construct();
-
-        $sessionCheck = $this->checkUserSession();
-
-        if ($sessionCheck) {
-            $this->user = User::getUserById($_SESSION['userid']);
-        } else {
-            header("Location: /login");
+        try {
+            $this->userFiles = File::getAllUserFiles($this->user);
+        } catch (\PDOException $e) {
+            $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
+            $error->toLog();
+            $error->toErrorPage('Ой');
         }
     }
 
     public function index()
     {
-        $files = File::getAllUserFiles($this->user);
-        $data['files'] = $files;
-        $data['message'] = '';
-        $this->view->render('files', $data);
+            $data['files'] = $this->userFiles;
+            $data['message'] = '';
+            $this->view->render('files', $data);
     }
 
     public function upload()
@@ -39,6 +35,7 @@ class Files extends Viewer
         $fileType = explode('/', $receivedFile['type']);
         $allowed = ['jpg', 'jpeg', 'png', 'gif'];
         $success = 1;
+        $message='';
 
         if (!in_array(end($fileType), $allowed)) {
             $success = 0;
@@ -56,18 +53,25 @@ class Files extends Viewer
         }
 
         if ($success) {
-            $description = $_POST['fileDescription'];
-            $description = strip_tags($description);
-            $description = htmlspecialchars($description, ENT_QUOTES);
+            try {
+                $description = $_POST['fileDescription'];
+                $description = strip_tags($description);
+                $description = htmlspecialchars($description, ENT_QUOTES);
 
-            $file = new File($this->user, $filename, $description);
-            $fileSource = $receivedFile['tmp_name'];
-            $file->upload($fileSource);
+                $file = new File($this->user, $filename, $description);
+                $fileSource = $receivedFile['tmp_name'];
+                $file->upload($fileSource);
 
-            header("Location: /files");
+                header("Location: /files");
+            } catch (\PDOException $e) {
+                $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
+                $error->toLog();
+                $data['files'] = $this->userFiles;
+                $data['message'] = $error->userMessage;
+                $this->view->render('files', $data);
+            }
         } else {
-            $files = File::getAllUserFiles($this->user);
-            $data['files'] = $files;
+            $data['files'] = $this->userFiles;
             $data['message'] = $message;
             $this->view->render('files', $data);
         }
@@ -75,11 +79,18 @@ class Files extends Viewer
 
     public function delete()
     {
-        $file = File::getFileById($_GET['id']);
+        try {
+            $file = File::getFileById($_GET['id']);
 
-        if ($this->user->getId() == $file->getOwner()->getId()) {
-            $file->delete();
+            if ($this->user->getId() == $file->getOwner()->getId()) {
+                $file->delete();
+            }
+        } catch (\PDOException $e) {
+            $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
+            $error->toLog();
+            $error->toErrorPage('Ой');
         }
+
 
         header("Location: /files");
     }

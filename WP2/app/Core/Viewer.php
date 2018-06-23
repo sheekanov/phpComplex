@@ -13,15 +13,4 @@ class Viewer
     {
         $this->view = new View();
     }
-
-    protected function checkUserSession()
-    {
-        if (isset($_SESSION['userid'])) {
-            if (User::isIdExist($_SESSION['userid'])) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
 }
