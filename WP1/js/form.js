@@ -15,12 +15,12 @@ $(document).ready(function(){
             }).done(function(response) {
                 var jsoned = JSON.parse(response);
                 if (jsoned.success){ //если скрипт отработал удачно, очищаем поля ввода и показываем попап с успехом. В консоль пишем сообщение сервера.
-                    console.log(jsoned.message);
                     $('#success').addClass("popup__active");
+                    $('#successMessage').html(jsoned.message);
                     $('#order-form')[0].reset();
                 } else { //если скрипт отработал с ошибкой, показываем попап с ошибкой. В консоль пишем сообщение сервера.
-                    console.log(jsoned.message);
                     $('#error').addClass("popup__active");
+                    $('#errorMessage').html(jsoned.message);
                 }
             })
         })

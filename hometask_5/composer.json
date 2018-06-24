@@ -1,0 +1,14 @@
+{
+    "name": "sheekanov/hometask_5",
+    "description": "hometask5",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Evgeny Shikanov",
+            "email": "sheekanov@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}

@@ -556,3 +556,11 @@ Trace:
 2: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 48 at App\Controllers\Login->create
 -----------------------------------------------------------------------------------
 
+24:06:2018 00:23:23 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LECT * FROM users ORDER BY age DESC' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 34 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Users.php on Line 17 at App\Models\User::getAllUsers
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Users->index
+-----------------------------------------------------------------------------------
+

@@ -1,0 +1,14 @@
+{
+    "name": "sheekanov/burger",
+    "description": "burger loftschool",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Evgeny Shikanov",
+            "email": "sheekanov@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.0"
+    }
+}

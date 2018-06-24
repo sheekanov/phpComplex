@@ -2,10 +2,11 @@
 //Скрипт обработки формы заказа
 
 require('db_login.php'); // переменные окружения
+require_once 'vendor/autoload.php';
 
 //Защищаемся от возможных xss атак
 
-foreach ($_POST as $key => $value){
+foreach ($_POST as $key => $value) {
     $data[$key] = strip_tags($value);
     $data[$key] = htmlspecialchars($data[$key], ENT_QUOTES);
 }
@@ -121,15 +122,31 @@ $mailText = 'Заказ №' . $orders[0]['maxid'] . ': DarkBeefBurger 1шт 500
 $filename = 'letters/' . $mailTitle . '.txt';
 file_put_contents($filename, $mailText);
 
-//Пробуем отправить письмо
-$isSent = mail($email, $mailTitle, $mailText);
+//Отправляем письмо
+try {
+    $transport = new Swift_SmtpTransport('smtp.timeweb.ru', 465, 'ssl');
+    $transport->setUsername('mrburger@sheekanov.ru')
+        ->setPassword('burger123')
+        ->setStreamOptions(array('ssl' => array('allow_self_signed' => true, 'verify_peer' => false)));
+
+    $mailer = new Swift_Mailer($transport);
+
+    $message = new Swift_Message($mailTitle, $mailText);
+    $message->setFrom(['mrBurger@sheekanov.ru' => 'Mr Burger Shikanov'])
+        ->setTo([$email => $name]);
+
+    $isSent = $mailer->send($message);
+} catch (Exception $e) {
+    $isSent = 0;
+}
+
 
 //Готовим ответ скрипта
 $response['success'] = 1;
-if ($isSent){
+if ($isSent) {
     $response['message'] = 'Заказ успешно создан, письмо отправлено';
 } else {
-    $response['message'] = 'Заказ успешно создан, письмо не отправлено';
+    $response['message'] = 'Заказ успешно создан, но письмо не отправлено';
 }
 $response['orderNo'] = $orders[0]['maxid'];
 $response['total'] = $orders[0]['total'];
