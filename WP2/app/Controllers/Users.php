@@ -17,18 +17,20 @@ class Users extends MainController
                 $users = User::getAllUsers();
             }
 
-            $data=[];
+            $userInfo=[];
 
             foreach ($users as $key => $user) {
-                $data[$key]['user'] = $user;
+                $userInfo[$key]['user'] = $user;
                 if ($user->age > 18) {
-                    $data[$key]['adult'] = 'Совершеннолетний';
+                    $userInfo[$key]['adult'] = 'Совершеннолетний';
                 } else {
-                    $data[$key]['adult'] = 'Несовершеннолетний';
+                    $userInfo[$key]['adult'] = 'Несовершеннолетний';
                 }
             }
 
-            $this->view->render('users', $data);
+            $data['users'] = $userInfo;
+
+            $this->view->renderTwig('users.twig', $data);
         } catch (\PDOException $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
@@ -49,7 +51,7 @@ class Users extends MainController
             } else {
                 $data = ['user' => new User('Профиль не найден', '0', 'Пользователь с Id=' .$userId . ' не существует')];
             }
-            $this->view->render('showProfile', $data);
+            $this->view->renderTwig('showProfile.twig', $data);
         } catch (\PDOException $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();

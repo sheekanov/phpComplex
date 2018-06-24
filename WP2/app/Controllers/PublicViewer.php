@@ -19,7 +19,7 @@ class PublicViewer extends Viewer
                 $data = array('url' => '\assets\pic\decor\\picNotFound.jpg', 'filename' => 'Изображение не найдено');
             }
 
-            $this->view->render('showImage', $data);
+            $this->view->renderTwig('showImage.twig', $data);
         } catch (\PDOException $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();

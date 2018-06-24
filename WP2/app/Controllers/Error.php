@@ -52,6 +52,6 @@ class Error extends Viewer
     public function toErrorPage($description)
     {
         $data = array('errorCode' => $this->exception->getCode(), 'errorDesc' => $description, 'userMessage' => $this->userMessage);
-        $this->view->render('errorPage', $data);
+        $this->view->renderTwig('errorPage.twig', $data);
     }
 }

@@ -23,7 +23,7 @@ class Files extends MainController
     {
             $data['files'] = $this->userFiles;
             $data['message'] = '';
-            $this->view->render('files', $data);
+            $this->view->renderTwig('files.twig', $data);
     }
 
     public function upload()
@@ -68,12 +68,12 @@ class Files extends MainController
                 $error->toLog();
                 $data['files'] = $this->userFiles;
                 $data['message'] = $error->userMessage;
-                $this->view->render('files', $data);
+                $this->view->renderTwig('files.twig', $data);
             }
         } else {
             $data['files'] = $this->userFiles;
             $data['message'] = $message;
-            $this->view->render('files', $data);
+            $this->view->renderTwig('files.twig', $data);
         }
     }
 

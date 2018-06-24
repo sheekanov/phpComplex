@@ -9,7 +9,8 @@ class Login extends Viewer
 {
     public function index()
     {
-        $this->view->render('login', ['message' => '']);
+        //$this->view->render('login', ['message' => '']);
+        $this->view->renderTwig('login.twig', ['message' => '']);
     }
 
     public function send()
@@ -27,16 +28,16 @@ class Login extends Viewer
                     header("Location: /profile");
                 } else {
                     $message  = 'Введен неправильный пароль. Попробуйте снова или зарегестрируйте нового пользователя';
-                    $this->view->render('login', ['message' => $message]);
+                    $this->view->renderTwig('login.twig', ['message' => $message]);
                 }
             } else {
                 $message  = 'Пользователь не существует. Попробуйте снова или зарегестрируйте нового пользователя';
-                $this->view->render('login', ['message' => $message]);
+                $this->view->renderTwig('login.twig', ['message' => $message]);
             }
         } catch (\PDOException $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
-            $this->view->render('login', ['message' => $error->userMessage]);
+            $this->view->renderTwig('login.twig', ['message' => $error->userMessage]);
         }
     }
 

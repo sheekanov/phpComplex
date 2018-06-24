@@ -10,7 +10,8 @@ class Profile extends MainController
     public function index()
     {
         $data = array('name' => $this->user->name, 'age' => $this->user->age, 'about' => $this->user->about, 'photo' => $this->user->photo);
-        $this->view->render('profile', $data);
+        //$this->view->render('profile', $data);
+        $this->view->renderTwig('profile.twig', $data);
     }
 
     public function update()
@@ -84,6 +85,6 @@ class Profile extends MainController
 
         $data = array('name' => $this->user->name, 'age' => $this->user->age, 'about' => $this->user->about, 'photo' => $this->user->photo);
         $data['message'] =$message;
-        $this->view->render('profilechange', $data);
+        $this->view->renderTwig('profileUpdate.twig', $data);
     }
 }
