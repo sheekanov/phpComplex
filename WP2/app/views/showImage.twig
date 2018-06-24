@@ -1,0 +1,16 @@
+{% extends 'base.twig' %}
+{% set headerRightDisplay = 'block' %}
+{% set headerRightText = 'Назад' %}
+{% set headerRightLink = '/files' %}
+
+{% block title %}
+    {{ filename }}
+{% endblock %}
+
+
+{% block main %}
+    <main class="main-viewer">
+        <img src="{{ url }}" alt="" class="viewer">
+    </main>
+{% endblock %}
+

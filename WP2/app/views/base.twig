@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1140px">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{%  endblock %}</title>
+    <link rel="stylesheet" href="/css/vendor.min.css">
+    <link rel="stylesheet" href="/css/styles.min.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="maincontent">
+        {% block header %}
+            {{ include('header.twig') }}
+        {% endblock %}
+        <div class="container">
+            {% block aside %}
+            {% endblock %}
+            {% block main %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% block bodyEnd %}{% endblock %}
+{{ include('footer.twig') }}
+<script src="/JS/vendor.min.js"></script>
+<script src="/JS/script.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base.twig' %}
+{% set headerRightDisplay = 'block' %}
+{% set headerRightText = 'Назад' %}
+{% set headerRightLink = '/profile' %}
+
+
+{% block title %}
+    Ошибка
+{% endblock %}
+
+
+{% block main %}
+    <main class="main-errors">
+        <div class="container">
+            <div class="errors">
+                <h1 class="error__title">Ошибка {{ errorCode }}</h1>
+                <h2 class="error__subtitle">{{ errorDesc }}</h2>
+                <div class="error__text">{{ userMessage }}</div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+

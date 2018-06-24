@@ -1,0 +1,46 @@
+{% extends 'base.twig' %}
+{% set headerRightDisplay = 'block' %}
+{% set headerRightText = 'Выйти' %}
+{% set headerRightLink = 'login/logout' %}
+{% set menuActive = 'ВСЕ ПОЛЬЗОВАТЕЛИ' %}
+
+{% block title %}
+    Мой профиль
+{% endblock %}
+
+{% block aside %}
+    {{ include ('aside.twig') }}
+{% endblock %}
+
+{% block main %}
+    <main class="main">
+        <div class="info">
+            <div class="info__left">
+                <div class="info__pic-wrapper">
+                    <div class="info__pic-block">
+                        <img src="{{ user.photo }}" alt="" class="info__userpic">
+                    </div>
+                </div>
+            </div>
+            <div class="info__right">
+                <table class="info__table">
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Имя:</td>
+                        <td class="info__valuecol">{{ user.name }}</td>
+                    </tr>
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Возраст:</td>
+                        <td class="info__valuecol">{{ user.age }}</td>
+                    </tr>
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Обо мне:</td>
+                        <td class="info__valuecol">
+                            <pre>{{ user.about }}</pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+

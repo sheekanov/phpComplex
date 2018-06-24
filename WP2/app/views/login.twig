@@ -1,0 +1,47 @@
+{% extends 'base.twig' %}
+
+{% block title %}
+Добро пожаловать в MVC!
+{% endblock %}
+
+{% block main %}
+    <main class="main-login">
+        <div class="container">
+            <div class="login">
+                <div class="login__title">Пожалуйста, авторизуйтесь</div>
+                <form action="/login/send" class="login__form" method="POST">
+                    <input type="text" class="login__name" name="loginName" placeholder="Имя пользователя">
+                    <input type="password" class="login__pass" name="loginPass" placeholder="Пароль">
+                    <div class="login__error">{{ message }}</div>
+                    <input type="submit" class="login__submit">
+                </form>
+                <div class="login__register-block">
+                    <a href="" class="login__register-link darkness__activator">Зарегестрировать нового пользователя</a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block bodyEnd %}
+<div class="darkness"></div>
+<div class="register darknesspopup">
+    <div class="register__title">Регистрация нового пользователя</div>
+    <form action="/login/create" class="register__form" method="POST" id="registerForm">
+        <div class="register__name-block">
+            <div class="register__name-error" id="registerNameError"></div>
+            <input type="text" class="register__name" name="registerName" placeholder="Имя пользователя">
+        </div>
+        <div class="register__pass-block">
+            <input type="password" class="register__pass" name="registerPass" placeholder="Пароль">
+        </div>
+        <div class="register__age-block">
+            <input type="text" class="register__age" name="registerAge" placeholder="Возраст">
+        </div>
+        <div class="register__btn-block">
+            <input type="submit" class="register__submit" id="registerSubmit">
+            <button class="register__close darknesspopup__close">Закрыть</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

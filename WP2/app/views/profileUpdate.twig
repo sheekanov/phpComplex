@@ -1,0 +1,61 @@
+{% extends 'base.twig' %}
+{% set headerRightDisplay = 'block' %}
+{% set headerRightText = 'Выйти' %}
+{% set headerRightLink = 'login/logout' %}
+{% set menuActive = 'МОЙ ПРОФИЛЬ' %}
+
+{% block title %}
+    Мой профиль
+{% endblock %}
+
+{% block aside %}
+    {% set menuActive = 'МОЙ ПРОФИЛЬ' %}
+    {{ include ('aside.twig') }}
+{% endblock %}
+
+{% block main %}
+    <main class="main">
+        <form class="info" method="POST" action="/profile/update" enctype="multipart/form-data">
+            <div class="info__left">
+                <div class="info__pic-wrapper">
+                    <div class="info__pic-block">
+                        <img src="{{ photo }}" alt="" class="info__userpic">
+                    </div>
+                </div>
+                <div class="info__change">
+                    <label for="changeUserpic" class="info__change-userpic-label">Загрузить фото</label>
+                    <input type="file" class="info__change-userpic" id="changeUserpic" name="changeUserpic">
+                </div>
+            </div>
+            <div class="info__right">
+                <table class="info__table">
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Имя:</td>
+                        <td class="info__valuecol">
+                            <input type="text" class="info__change-name" id="changeName" name="changeName" value="{{ name }}">
+                            <span class="info__change-name-error">{{ message }}</span>
+                        </td>
+                    </tr>
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Возраст:</td>
+                        <td class="info__valuecol">
+                            <input type="text" class="info__change-age" id="changeAge" name="changeAge" value="{{ age }}">
+                        </td>
+                    </tr>
+                    <tr class="info__tablerow">
+                        <td class="info__titlecol">Обо мне:</td>
+                        <td class="info__valuecol">
+                            <textarea name="changeAbout" id="changeAbout" class="info__change-about">{{ about }}</textarea>
+                        </td>
+                    </tr>
+                </table>
+                <div class="info__change-buttons">
+                    <input type="submit" class="info__change-submit" id="changeSubmit">
+                    <label for="changeSubmit" class="info__change-submit-label">Сохранить</label>
+                    <a href="/profile" class="info__change-reset">Не сохранять</a>
+                </div>
+            </div>
+        </form>
+    </main>
+{% endblock %}
+
