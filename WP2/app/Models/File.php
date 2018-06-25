@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use PDO;
-use App\Core\Config;
 use App\Models\DBModel;
 
 class File

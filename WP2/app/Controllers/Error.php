@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use \App\Core\Config;
 use \App\Core\Viewer;
 
 class Error extends Viewer
@@ -35,7 +34,7 @@ class Error extends Viewer
 
         $errorLog .= '-----------------------------------------------------------------------------------' . PHP_EOL . PHP_EOL;
 
-        file_put_contents(getcwd() . Config::ERROR_LOG, $errorLog, FILE_APPEND);
+        file_put_contents(getcwd() . '/../app/resources/ErrorLog.txt', $errorLog, FILE_APPEND);
     }
 
     public function toJson()

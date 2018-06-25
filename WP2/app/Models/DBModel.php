@@ -2,7 +2,6 @@
 namespace App\Models;
 
 use PDO;
-use App\Core\Config;
 
 class DBModel
 {
@@ -10,7 +9,7 @@ class DBModel
 
     public function __construct()
     {
-        $this->database = new PDO('mysql:host=localhost;dbname=' . Config::DB_NAME, Config::DB_USER, Config::DB_PASSWD);
+        $this->database = new PDO('mysql:host=localhost;dbname=' . getenv('DB_NAME'), getenv('DB_USER'), getenv('DB_PASSWD'));
         $this->database -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 

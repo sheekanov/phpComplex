@@ -1,8 +1,6 @@
 <?php
 namespace App\Models;
 
-use App\Core\Config;
-
 class User
 {
     private $id;

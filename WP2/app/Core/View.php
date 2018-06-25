@@ -12,12 +12,6 @@ class View
         $this->twig = new \Twig_Environment($this->loader);
     }
 
-
-    public function render(string $filename, array $data)
-    {
-        require_once __DIR__."/../views/".$filename.".php";
-    }
-
     public function renderTwig($filename, $data)
     {
 

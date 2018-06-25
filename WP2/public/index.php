@@ -3,11 +3,13 @@ session_start();
 
 use \App\Controllers\Error;
 use \App\Errors\RouterException;
+use App\Core\Config;
 
 error_reporting(E_ALL);
 
 require_once '../vendor/autoload.php';
 
+$config = new Config();
 
 $route = explode('/', $_SERVER['REQUEST_URI']);
 
