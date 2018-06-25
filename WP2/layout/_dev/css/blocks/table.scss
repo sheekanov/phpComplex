@@ -1,0 +1,121 @@
+.table{
+
+  width: 100%;
+  border-collapse: collapse;
+  @include box-shadow(0px 1px 3px);
+  margin-bottom: 25px;
+  table-layout: fixed;
+}
+
+.table td{
+  border:1px solid;
+  padding-left: 5px;
+}
+
+.table__preview-col{
+  padding: 2px;
+}
+
+.table_head-col{
+  font-weight: bold;
+  text-align: center;
+}
+
+.table__head-col--delete{
+  width: 8%;
+}
+
+.table__head-col--preview{
+  width: 10%;
+}
+.table__head-col--name{
+  width: 30%;
+}
+
+.table__head-col--desc{
+  width: 52%;
+}
+
+.table__delete-col{
+  text-align: center;
+  vertical-align: middle;
+}
+
+.table__delete-link{
+  text-decoration: underline;
+  color: red;
+
+  &:hover{
+    color: #666666;
+    text-decoration: none;
+  }
+
+  &:visited{
+    color: red;
+  }
+}
+
+.table__preview-block{
+  width: 100%;
+  height: 50px;
+  vertical-align: middle;
+  display: inline-block;
+  text-align: center;
+}
+
+.table__preview-img{
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.table__preview-link{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.table__show-link{
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+.table__table-head{
+  background-color: #d1cfcb;
+}
+
+.table__head-col--userName{
+  width: 25%;
+}
+
+.table__head-col--userAge{
+  width: 15%;
+  position: relative;
+}
+
+.table__head-col--userAdult{
+  width: 20%;
+}
+
+.table__user-name-link {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.table__about-block{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table__sort-link{
+  margin-left: 3px;
+  font-size: 16px;
+}
+
+.table__desc-col{
+  word-break: break-all;
+}

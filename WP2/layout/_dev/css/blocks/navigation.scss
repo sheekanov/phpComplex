@@ -1,0 +1,22 @@
+.navigation__item{
+  margin-bottom: 15px;
+  border-left: 5px solid transparent;
+  padding-left: 10px;
+
+  &:hover{
+    border-left-color: #666666;
+  }
+}
+
+.navigation__item--active{
+  font-weight: bold;
+  border-left-color: black;
+}
+
+.navigation__link{
+  text-decoration: underline;
+  &:hover{
+    text-decoration: none;
+    border-left-color: #666666;
+  }
+}

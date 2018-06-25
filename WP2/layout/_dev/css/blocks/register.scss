@@ -1,0 +1,32 @@
+.register{
+  width: 400px;
+}
+
+.register__title{
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.register__name-block{
+  margin-bottom: 10px;
+}
+
+.register__pass-block{
+  margin-bottom: 10px;
+}
+
+.register__name-error{
+  color: red;
+  min-height: 25px;
+}
+
+.register__age-block{
+  margin-bottom: 25px;
+}
+
+.register__btn-block{
+  text-align: center;
+}
+
+

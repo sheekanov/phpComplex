@@ -1,0 +1,22 @@
+{
+  "name": "mvc-layout",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "sheekanov"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "^8.0.0",
+    "jquery": "^3.3.1"
+  }
+}

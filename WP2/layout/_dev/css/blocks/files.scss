@@ -1,0 +1,30 @@
+.files__upload-block{
+  border: 2px solid;
+  padding: 15px;
+  @include box-shadow(0px 1px 3px);
+  margin-bottom: 25px;
+}
+
+.files__form-row{
+  margin-bottom: 5px;
+}
+
+.files__textarea{
+  height: 50px;
+  width: 50%;
+}
+
+.files__title{
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.files__text{
+  margin-bottom: 10px;
+}
+
+.files__error-message{
+  height: 22px;
+  line-height: 22px;
+  color: red;
+}
