@@ -54,11 +54,6 @@ class Login extends Viewer
             $response['message'] = 'Пароль должен содержать только английские буквы и цифры';
         }
 
-        if (!ctype_alnum($name)) {
-            $response['success'] = 0;
-            $response['message'] = 'Имя должно содержать только английские буквы и цифры';
-        }
-
         $name = strip_tags($name);
         $name = htmlspecialchars($name, ENT_QUOTES);
         $pass = strip_tags($pass);
@@ -84,12 +79,11 @@ class Login extends Viewer
                 $user = new User($name, $age, crypt($pass, 'loft'));
                 $user->save();
                 $_SESSION['userid'] = $user->getId();
-                mkdir(getcwd() . Config::UPLOAD_DIR . '\user' . $user->getId() . '\userpic\\', 0777, true);
-                mkdir(getcwd() . Config::UPLOAD_DIR . '\user' . $user->getId() . '\files\\', 0777, true);
+                mkdir(getcwd() . '\uploads\user' . $user->getId() . '\userpic\\', 0777, true);
+                mkdir(getcwd() . '\uploads\user' . $user->getId() . '\files\\', 0777, true);
             }
-
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toJson();

@@ -924,3 +924,66 @@ Trace:
 3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Profile->update
 -----------------------------------------------------------------------------------
 
+25:06:2018 15:05:09 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'Барс'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:05:10 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'Барс'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:05:20 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = ''' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:05:24 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:09:52 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:09:55 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 15:10:01 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) as count FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 78 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+
+25:06:2018 18:31:31 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php at Line 119: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'password' in 'field list'
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 119 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 85 at App\Models\User->save
+2: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+

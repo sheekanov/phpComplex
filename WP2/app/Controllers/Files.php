@@ -60,7 +60,10 @@ class Files extends MainController
 
                 $file = new File($this->user, $filename, $description);
                 $fileSource = $receivedFile['tmp_name'];
-                $file->upload($fileSource);
+                $file->upload();
+
+                $destination = getcwd() .  $file->getUrl();
+                move_uploaded_file($fileSource, $destination);
 
                 header("Location: /files");
             } catch (\PDOException $e) {
@@ -84,6 +87,7 @@ class Files extends MainController
 
             if ($this->user->getId() == $file->getOwner()->getId()) {
                 $file->delete();
+                unlink(getcwd(). $file->getUrl());
             }
         } catch (\PDOException $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);

@@ -1,6 +1,8 @@
 <?php
 namespace App\Models;
 
+use App\Core\Config;
+
 class User
 {
     private $id;
@@ -115,8 +117,8 @@ class User
             $userUpdate =$db->database->prepare('UPDATE users SET name = :name, age = :age, about = :about, photo = :photo, password = :password WHERE id = :id');
             $userUpdate->execute([':name' => $this->name, ':age' => $this->age, ':id' => $this->id, ':about' => $this->about, ':photo' => $this->photo, ':password' => $this->password]);
         } else {
-            $userInsert = $db->database->prepare('INSERT INTO users (name, age, password) VALUES (:name, :age, :password)');
-            $userInsert->execute([':name' => $this->name, ':age' => $this->age, ':password' => $this->password]);
+            $userInsert = $db->database->prepare('INSERT INTO users (name, age, password, about, photo) VALUES (:name, :age, :password, :about, :photo)');
+            $userInsert->execute([':name' => $this->name, ':age' => $this->age, ':password' => $this->password, ':about' => $this->about, ':photo' => $this->photo]);
             $this->id = $db->database->lastInsertId('users');
         }
 

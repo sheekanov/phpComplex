@@ -41,7 +41,7 @@ class Profile extends MainController
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
             if (!empty($file['name'])) {
-                $newPhoto = Config::UPLOAD_DIR . '\user' . $this->user->getId() . '\userpic\\' . $filename;
+                $newPhoto = '\uploads\user' . $this->user->getId() . '\userpic\\' . $filename;
 
                 if (!in_array(end($fileType), $allowed)) {
                     $success = 0;

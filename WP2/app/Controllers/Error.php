@@ -46,7 +46,7 @@ class Error extends Viewer
         $json = json_encode($response, JSON_UNESCAPED_UNICODE);
         $data=[];
         $data['json'] = $json;
-        $this->view->render('errorJson', $data);
+        $this->view->renderTwig('errorJson.twig', $data);
     }
 
     public function toErrorPage($description)

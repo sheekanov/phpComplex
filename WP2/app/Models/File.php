@@ -35,18 +35,16 @@ class File
         return $this->url;
     }
 
-    public function upload($source)
+    public function upload()
     {
         $db = new DBModel();
 
         $userid = $this->owner->getId();
-        $destination = getcwd() . Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
-        $url = Config::UPLOAD_DIR . '\user' . $userid . '\files\\' . $this->filename;
+        $url = '\uploads\user' . $userid . '\files\\' . $this->filename;
         $fileInsert = $db->database->prepare('INSERT INTO files (user_id, filename, description, url) VALUES (:userid, :filename, :description, :url)');
         $fileInsert->execute([':userid' => $userid, ':filename' => $this->filename, ':description' => $this->description, ':url' => $url]);
-        move_uploaded_file($source, $destination);
         $this->id = $db->database->lastInsertId('files');
-        $this->url = $destination;
+        $this->url = $url;
 
         $db = null;
     }
@@ -57,7 +55,6 @@ class File
 
         $fileDelete = $db->database->prepare('DELETE from files WHERE id = :id');
         $fileDelete->execute([':id' => $this->id]);
-        unlink(getcwd() . $this->url);
 
         $db = null;
     }
