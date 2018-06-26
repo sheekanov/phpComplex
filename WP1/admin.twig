@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Админка сайта</title>
+    <link rel="stylesheet" href="css/vendors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="container">
+        <div class="admin__header">
+            <h1 class="admin__title">Административная панель сайта</h1>
+        </div>
+        <main class="admin__content">
+            <div class="admin__customers">
+                <h2 class="admin__section-title">Зарегистрированные покупатели</h2>
+                <table class="admin__table">
+                    <thead class="admin__table-header">
+                    <tr class="admin__table-row">
+                        <td class="admin__table-column admin__table-column--header">Номер</td>
+                        <td class="admin__table-column admin__table-column--header">Email</td>
+                        <td class="admin__table-column admin__table-column--header">Имя</td>
+                        <td class="admin__table-column admin__table-column--header">Телефон</td>
+                    </tr>
+                    </thead>
+                    <tbody class="admin__table-body">
+                    {% for customer in customers %}
+                     <tr class="admin__table-row">
+                         <td class="admin__table-column">{{ customer['id'] }}</td>
+                         <td class="admin__table-column">{{ customer['email'] }}</td>
+                         <td class="admin__table-column">{{ customer['name'] }}</td>
+                         <td class="admin__table-column">{{ customer['tel'] }}</td>
+                     </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="admin__orders">
+                <h2 class="admin__section-title">Зарегистрированные заказы</h2>
+                <table class="admin__table">
+                    <thead class="admin__table-header">
+                    <tr class="admin__table-row">
+                        <td class="admin__table-column admin__table-column--header">Номер заказа</td>
+                        <td class="admin__table-column admin__table-column--header">Номер покупателя</td>
+                        <td class="admin__table-column admin__table-column--header">Улица</td>
+                        <td class="admin__table-column admin__table-column--header">Дом</td>
+                        <td class="admin__table-column admin__table-column--header">Корпус</td>
+                        <td class="admin__table-column admin__table-column--header">Квартира</td>
+                        <td class="admin__table-column admin__table-column--header">Этаж</td>
+                        <td class="admin__table-column admin__table-column--header">Платеж</td>
+                        <td class="admin__table-column admin__table-column--header">Обратный звонок</td>
+                        <td class="admin__table-column admin__table-column--header">Комментарий</td>
+                    </tr>
+                    </thead>
+                    <tbody class="admin__table-body">
+                    {% for order in orders %}
+                     <tr class="admin__table-row">
+                         <td class="admin__table-column">{{ order['id'] }}</td>
+                         <td class="admin__table-column">{{ order['customer_id'] }}</td>
+                         <td class="admin__table-column">{{ order['street'] }}</td>
+                         <td class="admin__table-column">{{ order['house'] }}</td>
+                         <td class="admin__table-column">{{ order['corp'] }}</td>
+                         <td class="admin__table-column">{{ order['appt'] }}</td>
+                         <td class="admin__table-column">{{ order['floor'] }}</td>
+                         <td class="admin__table-column">{{ order['payment'] }}</td>
+                         <td class="admin__table-column">{{ order['callback'] }}</td>
+                         <td class="admin__table-column">{{ order['comment'] }}</td>
+                     </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>
