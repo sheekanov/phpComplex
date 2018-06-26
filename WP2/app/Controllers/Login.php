@@ -78,8 +78,8 @@ class Login extends Viewer
                 $user = new User($name, $age, crypt($pass, 'loft'));
                 $user->save();
                 $_SESSION['userid'] = $user->getId();
-                mkdir(getcwd() . '\uploads\user' . $user->getId() . '\userpic\\', 0777, true);
-                mkdir(getcwd() . '\uploads\user' . $user->getId() . '\files\\', 0777, true);
+                mkdir(getcwd() . '/uploads/user' . $user->getId() . '/userpic/', 0777, true);
+                mkdir(getcwd() . '/uploads/user' . $user->getId() . '/files/', 0777, true);
             }
             echo json_encode($response, JSON_UNESCAPED_UNICODE);
         } catch (\Exception $e) {

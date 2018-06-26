@@ -40,7 +40,7 @@ class File
         $db = new DBModel();
 
         $userid = $this->owner->getId();
-        $url = '\uploads\user' . $userid . '\files\\' . $this->filename;
+        $url = '/uploads/user' . $userid . '/files/' . $this->filename;
         $fileInsert = $db->database->prepare('INSERT INTO files (user_id, filename, description, url) VALUES (:userid, :filename, :description, :url)');
         $fileInsert->execute([':userid' => $userid, ':filename' => $this->filename, ':description' => $this->description, ':url' => $url]);
         $this->id = $db->database->lastInsertId('files');

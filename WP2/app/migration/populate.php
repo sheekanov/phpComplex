@@ -18,6 +18,6 @@ for ($i = 0; $i < 10; $i++) {
     $about = $faker->text;
     $user = new User($name, $age, crypt($passwd, 'loft'), $about);
     $user->save();
-    mkdir(getcwd() . '\..\..\public\uploads\user' . $user->getId() . '\userpic\\', 0777, true);
-    mkdir(getcwd() . '\..\..\public\uploads\user' . $user->getId() . '\files\\', 0777, true);
+    mkdir(getcwd() . '../../public/uploads/user' . $user->getId() . '/userpic/', 0777, true);
+    mkdir(getcwd() . '../../public/uploads/user' . $user->getId() . '/files/', 0777, true);
 }

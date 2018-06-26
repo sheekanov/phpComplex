@@ -66,26 +66,28 @@ class Profile extends MainController
                 }
 
                 if ($success) {
-                    $newPhoto = '\uploads\user' . $this->user->getId() . '\userpic\userpic' . '.' . end($fileExtension);
-                    $userpics = scandir(getcwd() . '\uploads\user' . $this->user->getId() . '\userpic');
-                    if (isset($userpics[2])) {
-                        unlink(getcwd() . '\uploads\user' . $this->user->getId() . '\userpic\\' . $userpics[2]);
-                    }
+                    if (!empty($filename)) {
+                        $newPhoto = '/uploads/user' . $this->user->getId() . '/userpic/userpic' . rand(0, 100) . '.' . end($fileExtension);
+                        $userpics = scandir(getcwd() . '/uploads/user' . $this->user->getId() . '/userpic');
+                        if (isset($userpics[2])) {
+                            unlink(getcwd() . '/uploads/user' . $this->user->getId() . '/userpic/' . $userpics[2]);
+                        }
 
-                    //ужимаем произвольную картинку до 200х200: сначаоа ресайзим меньшую сторону до 200 с сохранением пропорции, затем из результате вырезаем серединку 200х200.
-                    $image = Image::make($file['tmp_name']);
-                    if ($image->width() >= $image->height()) {
-                        $image->resize(null, 200, function ($image) {
-                            $image->aspectRatio();
-                        });
-                        $image->crop(200, 200, round(($image->width()-200)/2), 0);
-                    } else {
-                        $image->resize(200, 0, function ($image) {
-                            $image->aspectRatio();
-                        });
-                        $image->crop(200, 200, 0, round(($image->height()-200)/2));
+                        //ужимаем произвольную картинку до 200х200: сначаоа ресайзим меньшую сторону до 200 с сохранением пропорции, затем из результате вырезаем серединку 200х200.
+                        $image = Image::make($file['tmp_name']);
+                        if ($image->width() >= $image->height()) {
+                            $image->resize(null, 200, function ($image) {
+                                $image->aspectRatio();
+                            });
+                            $image->crop(200, 200, round(($image->width()-200)/2), 0);
+                        } else {
+                            $image->resize(200, 0, function ($image) {
+                                $image->aspectRatio();
+                            });
+                            $image->crop(200, 200, 0, round(($image->height()-200)/2));
+                        }
+                        $image->save(getcwd() . $newPhoto);
                     }
-                    $image->save(getcwd() . $newPhoto);
 
                     $this->user->name = $newName;
                     $this->user->age = $newAge;
