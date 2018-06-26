@@ -17,6 +17,7 @@
         "twig/twig": "^2.4",
         "illuminate/database": "^5.6",
         "fzaninotto/faker": "^1.7",
-        "symfony/dotenv": "^4.1"
+        "symfony/dotenv": "^4.1",
+        "intervention/image": "^2.4"
     }
 }

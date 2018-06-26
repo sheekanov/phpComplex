@@ -2,7 +2,7 @@
     <nav class="navigation">
         <ul class="navigation__list">
             {% set menu = ['МОЙ ПРОФИЛЬ', 'МОИ ФАЙЛЫ', 'ВСЕ ПОЛЬЗОВАТЕЛИ'] %}
-            {% set menuLinks = ['/profile', '/files' , 'users'] %}
+            {% set menuLinks = ['/profile', '/files' , '/users'] %}
             {% for i in 0..2 %}
             <li class="navigation__item {% if menu[i] == menuActive %} navigation__item--active {%  endif %}">
                 <a href="{{ menuLinks[i] }}" class="navigation__link">{{ menu[i] }}</a>

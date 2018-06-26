@@ -6,3 +6,88 @@ Trace:
 3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 45 at App\Controllers\Users->index
 -----------------------------------------------------------------------------------
 
+26:06:2018 15:22:38 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:23:50 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:24:43 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:26:55 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:27:09 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:27:53 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php at Line 71: Ошибка в файле.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 15:56:26 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Commands\Argument.php at Line 138: crop() accepts only integer values as argument 3.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Gd\Commands\CropCommand.php on Line 20 at Intervention\Image\Commands\Argument->type
+1: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDriver.php on Line 92 at Intervention\Image\Gd\Commands\CropCommand->execute
+2: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Image.php on Line 106 at Intervention\Image\AbstractDriver->executeCommand
+3: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php on Line 77 at Intervention\Image\Image->__call
+4: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 16:21:54 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Gd\Decoder.php at Line 113: Unable to init from given binary data.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDecoder.php on Line 342 at Intervention\Image\Gd\Decoder->initFromBinary
+1: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDriver.php on Line 64 at Intervention\Image\AbstractDecoder->init
+2: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManager.php on Line 52 at Intervention\Image\AbstractDriver->init
+3: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManagerStatic.php on Line 57 at Intervention\Image\ImageManager->make
+4: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php on Line 77 at Intervention\Image\ImageManagerStatic::make
+5: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 16:22:00 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Gd\Decoder.php at Line 113: Unable to init from given binary data.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDecoder.php on Line 342 at Intervention\Image\Gd\Decoder->initFromBinary
+1: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDriver.php on Line 64 at Intervention\Image\AbstractDecoder->init
+2: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManager.php on Line 52 at Intervention\Image\AbstractDriver->init
+3: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManagerStatic.php on Line 57 at Intervention\Image\ImageManager->make
+4: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php on Line 77 at Intervention\Image\ImageManagerStatic::make
+5: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 16:22:34 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\Gd\Decoder.php at Line 113: Unable to init from given binary data.
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDecoder.php on Line 342 at Intervention\Image\Gd\Decoder->initFromBinary
+1: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\AbstractDriver.php on Line 64 at Intervention\Image\AbstractDecoder->init
+2: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManager.php on Line 52 at Intervention\Image\AbstractDriver->init
+3: in File D:\OSPanel\domains\phpcomplex\WP2\vendor\intervention\image\src\Intervention\Image\ImageManagerStatic.php on Line 57 at Intervention\Image\ImageManager->make
+4: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Profile.php on Line 77 at Intervention\Image\ImageManagerStatic::make
+5: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Profile->update
+-----------------------------------------------------------------------------------
+
+26:06:2018 16:55:48 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SECT * FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 77 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 22 at App\Models\User::getUserByName
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Login->send
+-----------------------------------------------------------------------------------
+
+26:06:2018 16:56:52 ---- Exception occured in file D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php at Line 21: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LECT COUNT(*) as count FROM users WHERE name = 'sheekanov'' at line 1
+Trace: 
+0: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\DBModel.php on Line 21 at PDOStatement->execute
+1: in File D:\OSPanel\domains\phpcomplex\WP2\app\Models\User.php on Line 93 at App\Models\DBModel->executeSelectQuery
+2: in File D:\OSPanel\domains\phpcomplex\WP2\app\Controllers\Login.php on Line 72 at App\Models\User::isNameExist
+3: in File D:\OSPanel\domains\phpcomplex\WP2\public\index.php on Line 47 at App\Controllers\Login->create
+-----------------------------------------------------------------------------------
+

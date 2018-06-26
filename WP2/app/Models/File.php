@@ -34,6 +34,7 @@ class File
         return $this->url;
     }
 
+    //сохраняет запись о файле в БД и присвает файлу url
     public function upload()
     {
         $db = new DBModel();
@@ -48,6 +49,7 @@ class File
         $db = null;
     }
 
+    //удаляет запись о файле из БД
     public function delete()
     {
         $db = new DBModel();
@@ -58,6 +60,7 @@ class File
         $db = null;
     }
 
+    //возвращает массив файлов, которыми владеет данный User
     public static function getAllUserFiles(User $user)
     {
         $db = new DBModel();
@@ -78,6 +81,7 @@ class File
         return $files;
     }
 
+    //возвращает файл по его Id
     public static function getFileById($id)
     {
         $db = new DBModel();

@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Core\MainController;
 use App\Models\User;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Profile extends MainController
 {
@@ -39,9 +40,7 @@ class Profile extends MainController
 
             $allowed = ['jpg', 'jpeg', 'png', 'gif'];
 
-            if (!empty($file['name'])) {
-                $newPhoto = '\uploads\user' . $this->user->getId() . '\userpic\\' . $filename;
-
+            if (!empty($filename)) {
                 if (!in_array(end($fileType), $allowed)) {
                     $success = 0;
                     $message = 'Недопустимый тип фото: ' . end($fileType);
@@ -67,15 +66,35 @@ class Profile extends MainController
                 }
 
                 if ($success) {
+                    $newPhoto = '\uploads\user' . $this->user->getId() . '\userpic\userpic' . '.' . end($fileExtension);
+                    $userpics = scandir(getcwd() . '\uploads\user' . $this->user->getId() . '\userpic');
+                    if (isset($userpics[2])) {
+                        unlink(getcwd() . '\uploads\user' . $this->user->getId() . '\userpic\\' . $userpics[2]);
+                    }
+
+                    //ужимаем произвольную картинку до 200х200: сначаоа ресайзим меньшую сторону до 200 с сохранением пропорции, затем из результате вырезаем серединку 200х200.
+                    $image = Image::make($file['tmp_name']);
+                    if ($image->width() >= $image->height()) {
+                        $image->resize(null, 200, function ($image) {
+                            $image->aspectRatio();
+                        });
+                        $image->crop(200, 200, round(($image->width()-200)/2), 0);
+                    } else {
+                        $image->resize(200, 0, function ($image) {
+                            $image->aspectRatio();
+                        });
+                        $image->crop(200, 200, 0, round(($image->height()-200)/2));
+                    }
+                    $image->save(getcwd() . $newPhoto);
+
                     $this->user->name = $newName;
                     $this->user->age = $newAge;
                     $this->user->about = $newAbout;
                     $this->user->photo = $newPhoto;
                     $this->user->save();
-                    move_uploaded_file($file['tmp_name'], getcwd() . $newPhoto);
                     $message = 'Данные сохранены';
                 }
-            } catch (\PDOException $e) {
+            } catch (\Exception $e) {
                 $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
                 $error->toLog();
                 $message = $error->userMessage;

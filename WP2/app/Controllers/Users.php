@@ -31,7 +31,7 @@ class Users extends MainController
             $data['users'] = $userInfo;
 
             $this->view->renderTwig('users.twig', $data);
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toErrorPage('Ой');
@@ -52,7 +52,7 @@ class Users extends MainController
                 $data = ['user' => new User('Профиль не найден', '0', 'Пользователь с Id=' .$userId . ' не существует')];
             }
             $this->view->renderTwig('showProfile.twig', $data);
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toErrorPage('Ой');

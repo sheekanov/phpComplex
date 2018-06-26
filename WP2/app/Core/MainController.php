@@ -4,6 +4,7 @@ namespace App\Core;
 use App\Errors\Error;
 use App\Models\User;
 
+//класс для наследования - при инициализации проверяет авторизацию пользователя
 class MainController extends Viewer
 {
     public $user;
@@ -20,7 +21,7 @@ class MainController extends Viewer
             } else {
                 header("Location: /login");
             }
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору', $e);
             $error->toLog();
             $error ->toErrorPage('Ой');

@@ -5,7 +5,7 @@ use \App\Controllers\Error;
 use \App\Errors\RouterException;
 use App\Core\Config;
 
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 require_once '../vendor/autoload.php';
 

@@ -1,6 +1,7 @@
 <?php
 namespace App\Core;
 
+//класс, кооторый рендерит Twig
 class View
 {
     protected $loader;

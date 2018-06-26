@@ -33,7 +33,7 @@ class Login extends Viewer
                 $message  = 'Пользователь не существует. Попробуйте снова или зарегестрируйте нового пользователя';
                 $this->view->renderTwig('login.twig', ['message' => $message]);
             }
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $this->view->renderTwig('login.twig', ['message' => $error->userMessage]);

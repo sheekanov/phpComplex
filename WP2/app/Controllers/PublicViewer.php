@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Core\Viewer;
 use App\Models\File;
 
+//Класс для публичного показа файлов пользователей. Особенность его в том, что он не провряет авторизацию.
 class PublicViewer extends Viewer
 {
     public function showImage()
@@ -20,7 +21,7 @@ class PublicViewer extends Viewer
             }
 
             $this->view->renderTwig('showImage.twig', $data);
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toErrorPage('Ой');

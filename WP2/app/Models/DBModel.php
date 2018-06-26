@@ -3,6 +3,7 @@ namespace App\Models;
 
 use PDO;
 
+//Класс создает подключение к БД
 class DBModel
 {
     public $database;

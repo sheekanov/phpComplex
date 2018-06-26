@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use \App\Core\Viewer;
 
+//Класс для управления ошибками
 class Error extends Viewer
 {
     public $exception;
@@ -17,6 +18,7 @@ class Error extends Viewer
         $this->userMessage = $userMessage;
     }
 
+    //пишет информацию в лог
     public function toLog()
     {
         $e=$this->exception;
@@ -36,7 +38,7 @@ class Error extends Viewer
 
         file_put_contents(getcwd() . '/../app/resources/ErrorLog.txt', $errorLog, FILE_APPEND);
     }
-
+    //возвращает информацию браузеру в виде Json
     public function toJson()
     {
         $response =[];
@@ -47,7 +49,7 @@ class Error extends Viewer
         $data['json'] = $json;
         $this->view->renderTwig('errorJson.twig', $data);
     }
-
+    //возвращает информацию браузеру в виде странички ошибки
     public function toErrorPage($description)
     {
         $data = array('errorCode' => $this->exception->getCode(), 'errorDesc' => $description, 'userMessage' => $this->userMessage);

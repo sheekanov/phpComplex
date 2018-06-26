@@ -12,7 +12,7 @@ class Files extends MainController
         parent::__construct();
         try {
             $this->userFiles = File::getAllUserFiles($this->user);
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toErrorPage('Ой');
@@ -66,7 +66,7 @@ class Files extends MainController
                 move_uploaded_file($fileSource, $destination);
 
                 header("Location: /files");
-            } catch (\PDOException $e) {
+            } catch (\Exception $e) {
                 $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
                 $error->toLog();
                 $data['files'] = $this->userFiles;
@@ -89,7 +89,7 @@ class Files extends MainController
                 $file->delete();
                 unlink(getcwd(). $file->getUrl());
             }
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             $error = new Error('Произошла ошибка. Обратитесь к администратору.', $e);
             $error->toLog();
             $error->toErrorPage('Ой');

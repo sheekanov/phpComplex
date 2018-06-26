@@ -24,7 +24,7 @@ class User
         return $this->id;
     }
 
-
+    //возвращает массив со всеми пользователями
     public static function getAllUsers($sort = 'DESC')
     {
         $db = new DBModel();
@@ -54,7 +54,7 @@ class User
     }
 
 
-    //статический метод - инициализация нового объекта User по Id
+    //возвращает пользователя по его Id
     public static function getUserById($id)
     {
         $db = new DBModel();
@@ -70,7 +70,7 @@ class User
             return $user;
         }
     }
-    //статический метод - инициализация нового объекта User по Name
+    //возвращает пользователя по его имени
     public static function getUserByName($name)
     {
         $db = new DBModel();
@@ -86,7 +86,7 @@ class User
             return $user;
         }
     }
-    //статический метод - проверка существует ли пользователь с заданным именем
+    //проверка существования пользователя по имени
     public static function isNameExist($name)
     {
         $db = new DBModel();
@@ -96,7 +96,7 @@ class User
 
         return $count;
     }
-    //статический метод - проверка существует ли пользователь с заданным id
+    //проверка существования пользователя по Id
     public static function isIdExist($id)
     {
         $db = new DBModel();

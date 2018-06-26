@@ -1,4 +1,12 @@
 .footer__text{
-  line-height: 50px;
   color: white;
+}
+
+.footer__link{
+  color: white;
+  text-decoration: underline;
+
+  &:hover{
+    text-decoration: none;
+  }
 }
