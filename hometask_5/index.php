@@ -19,6 +19,7 @@ echo '<br>';
 
 echo '<b>Задание 3</b>';
 echo '<br>';
+task3(getcwd() . '/originalPic.jpg', getcwd() . '/resultPic.jpg');
 echo 'Картинка originalPic.jpg сохранена как resultPic.jpg:';
 echo '<br>';
 echo '<img src="resultPic.jpg">';
