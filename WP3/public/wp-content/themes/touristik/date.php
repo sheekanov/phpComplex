@@ -1,9 +1,9 @@
 <?php get_header(); ?>
 <?php $posts = query_posts([
     'post_type' => ['post', 'stocks'],
-    'year' => $year,
-    'monthnum' => $monthnum,
-    'day' => $day,
+    'year' => $GLOBALS['year'],
+    'monthnum' => $GLOBALS['monthnum'],
+    'day' => $GLOBALS['day'],
     'paged' => get_query_var('paged')
 ]) ?>
 
@@ -40,6 +40,7 @@
     <?php wp_reset_query(); wp_reset_postdata(); ?>
 </div>
 <div class="sidebar">
+    <?php tc_get_calendar(); ?>
     <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar() ) : endif; ?>
 </div>
 

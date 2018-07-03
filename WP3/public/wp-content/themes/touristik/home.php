@@ -37,6 +37,7 @@
     <?php wp_reset_query(); wp_reset_postdata(); ?>
 </div>
 <div class="sidebar">
+    <?php tc_get_calendar(); ?>
     <?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar() ) : endif; ?>
 </div>
 

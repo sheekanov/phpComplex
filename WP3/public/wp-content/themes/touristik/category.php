@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 <?php $posts = query_posts([
     'post_type' => ['stocks'],
-    'category_name' => $category_name,
+    'category_name' => $GLOBALS['category_name'],
     'paged' => get_query_var('paged')
 ]) ?>
 
