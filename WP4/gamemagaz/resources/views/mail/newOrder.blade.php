@@ -1,20 +1,17 @@
-<p>Пользователь <b>{{$orders[0]->user->name}} ({{$orders[0]->user->email}})</b> оформил заказ:</p>
+<p>Поступил заказ <b>№{{$order->id}}</b> от {{$order->updated_at->format('d.m.Y')}}</p>
+<p>Пользователь <b>{{$order->user->name}} ({{$order->customer_name}} {{$order->customer_email}})</b> оформил заказ :</p>
 <table>
     <thead>
     <tr>
-        <th>Номер</th>
         <th>Товар</th>
         <th>Цена</th>
-        <th>Дата</th>
     </tr>
     </thead>
     <tbody>
-    @foreach($orders as $order)
+    @foreach($order->orderPositions()->get()->all() as $orderPosition)
         <tr>
-            <td>{{$order->id}}</td>
-            <td><a href="{{route('product', ['product_id' => $order->product->id])}}">{{$order->product->name}}</a></td>
-            <td>{{$order->product->price}}</td>
-            <td>{{$order->updated_at->format('d.m.Y')}}</td>
+            <td><a href="{{route('product', ['product_id' => $orderPosition->product_id])}}">{{$orderPosition->product->name}}</a></td>
+            <td>{{$orderPosition->product->price}}</td>
         </tr>
     @endforeach
     </tbody>

@@ -22,14 +22,17 @@ Route::get('/product/{product_id}', 'ProductController@index')->name('product');
 
 Route::get('/about', 'AboutController@index')->name('about');
 
+Route::get('/news', 'NewsController@index')->name('news');
+Route::get('/news/article/{news_id}', 'NewsController@article')->name('news.article');
+
 Route::group(['prefix' => 'cart', 'middleware' => 'registered'], function () {
     Route::get('/', 'CartController@index')->name('cart');
     Route::get('/add/{product_id}', 'CartController@add')->name('cart.add');
-    Route::get('/delete/{order_id}', 'CartController@delete')->name('cart.delete');
+    Route::get('/delete/{orderPosition_id}', 'CartController@delete')->name('cart.delete');
     Route::post('/send', 'CartController@send')->name('cart.send');
 });
 
-Route::get('/orders', 'MyOrders@index')->name('myOrders');
+Route::get('/orders', 'MyOrders@index')->name('myOrders')->middleware('registered');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'adminOnly'], function () {
 
@@ -50,4 +53,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'adminOnly'], function () {
     Route::get('/products/edit/{product_id}', 'Admin\ProductsController@edit')->name('admin.products.edit');
     Route::post('/products/update/{product_id}', 'Admin\ProductsController@update')->name('admin.products.update');
     Route::get('/products/delete/{product_id}', 'Admin\ProductsController@delete')->name('admin.products.delete');
+    Route::get('/orders', 'Admin\OrdersController@index')->name('admin.orders');
+    Route::get('/orders/view/{order_id}', 'Admin\OrdersController@view')->name('admin.orders.view');
+    Route::get('/news', 'Admin\NewsController@index')->name('admin.news');
+    Route::get('/news/create', 'Admin\NewsController@create')->name('admin.news.create');
+    Route::post('/news/store', 'Admin\NewsController@store')->name('admin.news.store');
+    Route::get('/news/edit/{news_id}', 'Admin\NewsController@edit')->name('admin.news.edit');
+    Route::post('/news/update/{news_id}', 'Admin\NewsController@update')->name('admin.news.update');
+    Route::get('/news/delete/{news_id}', 'Admin\NewsController@delete')->name('admin.news.delete');
 });

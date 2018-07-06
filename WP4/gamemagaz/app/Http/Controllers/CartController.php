@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\OrderPostedEvent;
 use App\Mail\newOrder;
 use App\Order;
+use App\OrderPosition;
 use App\Product;
 use App\User;
 use Illuminate\Http\Request;
@@ -18,9 +19,13 @@ class CartController extends Controller
 
     public function index()
     {
-        $orders = Auth::user()->orders()->where('status', '=', 0)->orderBy('created_at')->get();
+        $order = Auth::user()->orders()->where('status', '=', 0)->first();
+        $orderPositions=[];
 
-        $data = ['page_title' => 'Корзина','content_title' => 'Мои заказы', 'orders' => $orders];
+        if (!is_null($order)) {
+            $orderPositions = $order->orderPositions()->orderBy('created_at')->get()->all();
+        }
+        $data = ['page_title' => 'Корзина','content_title' => 'Мои заказы', 'orderPositions' => $orderPositions];
 
         return view('front.cart', $data);
     }
@@ -28,19 +33,32 @@ class CartController extends Controller
     public function add($product_id)
     {
         $user = Auth::user();
-        if (empty(($user->orders()->where('status', '=', 0)->where('product_id', '=', $product_id)->get()->all()))) {
+        $order = $user->orders()->where('status', '=', 0)->first();
+
+        if (is_null($order)) {
             $order = new Order();
-            $order->product_id = $product_id;
-            $order->status = 0;
             $user->orders()->save($order);
         }
+
+        $orderPosition = new OrderPosition();
+        $orderPosition->product_id = $product_id;
+
+        $order->orderPositions()->save($orderPosition);
 
         return redirect()->route('cart');
     }
 
-    public function delete($order_id)
+    public function delete($orderPosition_id)
     {
-        Auth::user()->orders()->find($order_id)->delete();
+        $user = Auth::user();
+        OrderPosition::find($orderPosition_id)->delete();
+
+        $order = $user->orders()->where('status', '=', 0)->first();
+
+        if ($order->orderPositions()->count() == 0) {
+            $order->delete();
+        }
+
         return back();
     }
 
@@ -51,10 +69,10 @@ class CartController extends Controller
         $customerEmail = $request->all()['email'];
 
         $query = Auth::user()->orders()->where('status', '=', 0);
-        $orders = $query->get()->all();
+        $order = $query->first();
         $query->update(['status' => 1 , 'customer_name' => $customerName, 'customer_email' => $customerEmail]);
 
-        event(new OrderPostedEvent($orders));
+        event(new OrderPostedEvent($order));
 
         $message = 'Спасибо за заказ. Наш менеджер свяжется с Вами в течение дня.';
         $success = 1;

@@ -30,7 +30,7 @@ class OrderPostedListener implements ShouldQueue
     public function handle(OrderPostedEvent $event)
     {
         sleep(5);
-        $data=['orders' => $event->orders];
+        $data=['order' => $event->order];
         $mail = new newOrder($data);
         $mail->subject('Новый заказ');
         Mail::to(Setting::find(1)->value)->send($mail);

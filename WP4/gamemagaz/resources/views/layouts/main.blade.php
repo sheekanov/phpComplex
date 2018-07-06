@@ -19,7 +19,7 @@
             <ul class="nav-list">
                 <li class="nav-list__item"><a href="/" class="nav-list__item__link">Главная</a></li>
                 <li class="nav-list__item"><a href="{{route('myOrders')}}" class="nav-list__item__link">Мои заказы</a></li>
-                <li class="nav-list__item"><a href="#" class="nav-list__item__link">Новости</a></li>
+                <li class="nav-list__item"><a href="{{route('news')}}" class="nav-list__item__link">Новости</a></li>
                 <li class="nav-list__item"><a href="{{route('about')}}" class="nav-list__item__link">О компании</a></li>
             </ul>
         </nav>
@@ -32,7 +32,16 @@
                 @else
                 <div class="payment-basket__status">
                     <div class="payment-basket__status__icon-block"><a href="/cart" class="payment-basket__status__icon-block__link"><i class="fa fa-shopping-basket"></i></a></div>
-                    <div class="payment-basket__status__basket"><span class="payment-basket__status__basket-value">{{Auth::user()->orders()->where('status', '=' ,0)->count()}}</span><span class="payment-basket__status__basket-value-descr">товаров</span></div>
+                    <div class="payment-basket__status__basket">
+                        <span class="payment-basket__status__basket-value">
+                            <?php $order = Auth::user()->orders()->where('status', '=' ,0)->first(); ?>
+                            @if(!is_null($order))
+                                {{$order->orderPositions()->count()}}
+                            @else
+                                    0
+                            @endif
+                        </span>
+                        <span class="payment-basket__status__basket-value-descr">товаров</span></div>
                 </div>
                 @endguest
             </div>
@@ -66,18 +75,12 @@
                 <div class="sidebar-item__title">Последние новости</div>
                 <div class="sidebar-item__content">
                     <div class="sidebar-news">
+                        @foreach(\App\News::orderBy('created_at', 'desc')->take(3)->get() as $news)
                         <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-2.jpg" alt="image-new" class="sidebar-new__item__preview-new__image"></div>
-                            <div class="sidebar-news__item__title-news"><a href="#" class="sidebar-news__item__title-news__link">О новых играх в режиме VR</a></div>
+                            <div class="sidebar-news__item__preview-news"><img src="{{$news->thumbnail}}" alt="image-new" class="sidebar-new__item__preview-new__image"></div>
+                            <div class="sidebar-news__item__title-news"><a href="{{route('news.article', ['news_id' => $news->id])}}" class="sidebar-news__item__title-news__link">{{$news->title}}</a></div>
                         </div>
-                        <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-1.jpg" alt="image-new" class="sidebar-new__item__preview-new__image"></div>
-                            <div class="sidebar-news__item__title-news"><a href="#" class="sidebar-news__item__title-news__link">О новых играх в режиме VR</a></div>
-                        </div>
-                        <div class="sidebar-news__item">
-                            <div class="sidebar-news__item__preview-news"><img src="/img/cover/game-4.jpg" alt="image-new" class="sidebar-new__item__preview-new__image"></div>
-                            <div class="sidebar-news__item__title-news"><a href="#" class="sidebar-news__item__title-news__link">О новых играх в режиме VR</a></div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

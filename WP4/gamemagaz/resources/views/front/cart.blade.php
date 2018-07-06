@@ -13,9 +13,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-row mb-3 cart__message" id="orderMessage">
-                                Ошибка
-                            </div>
+                            <div class="form-row mb-3 cart__message" id="orderMessage"></div>
                             <form id="orderForm" class="" method="POST" action="{{route('cart.send')}}">
                                 {{csrf_field()}}
                                 <div class="form-row mb-3">
@@ -24,7 +22,7 @@
                                 </div>
                                 <div class="form-row">
                                     <label for="email">Ваш Email</label>
-                                    <input type="email" name="email" id="email" class="form-control">
+                                    <input type="email" name="email" id="email" class="form-control" value="{{\Illuminate\Support\Facades\Auth::user()->email}}">
                                 </div>
                             </form>
                         </div>
@@ -42,17 +40,17 @@
 
 @section('main-content')
     <div class="cart-product-list">
-        @foreach ($orders as $order)
-            <?php $summ += $order->product()->withTrashed()->first()->price?>
+        @foreach ($orderPositions as $orderPosition)
+            <?php $summ += $orderPosition->product()->withTrashed()->first()->price?>
             <div class="cart-product-list__item">
-                <div class="cart-product__item__product-photo"><img src="{{$order->product()->withTrashed()->first()->pic}}" class="cart-product__item__product-photo__image"></div>
+                <div class="cart-product__item__product-photo"><img src="{{$orderPosition->product()->withTrashed()->first()->pic}}" class="cart-product__item__product-photo__image"></div>
                 <div class="cart-product__item__product-name">
-                    <div class="cart-product__item__product-name__content"><a href="{{route('cart.delete', ['order_id' => $order->id])}}">{{$order->product()->withTrashed()->first()->name}} (удалить)</a></div>
+                    <div class="cart-product__item__product-name__content"><a href="{{route('cart.delete', ['orderPosition_id' => $orderPosition->id])}}">{{$orderPosition->product()->withTrashed()->first()->name}} (удалить)</a></div>
                 </div>
                 <div class="cart-product__item__cart-date">
-                    <div class="cart-product__item__cart-date__content">{{$order->created_at->format('d.m.Y')}}</div>
+                    <div class="cart-product__item__cart-date__content">{{$orderPosition->created_at->format('d.m.Y')}}</div>
                 </div>
-                <div class="cart-product__item__product-price"><span class="product-price__value">{{$order->product()->withTrashed()->first()->price}} рублей</span></div>
+                <div class="cart-product__item__product-price"><span class="product-price__value">{{$orderPosition->product()->withTrashed()->first()->price}} рублей</span></div>
             </div>
         @endforeach
         <div class="cart-product-list__result-item">
@@ -63,7 +61,7 @@
 @endsection
 
 @section('content-footer')
-    @if(!empty($orders->all()))
+    @if(!empty($orderPositions))
         <div class="btn-buy-wrap"><a href="{{route('cart.send')}}" class="btn-buy-wrap__btn-link" data-toggle="modal" data-target="#exampleModal">Оформить заказ</a></div>
     @endif
 @endsection

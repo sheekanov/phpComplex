@@ -14,16 +14,16 @@ class OrderPostedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $orders;
+    public $order;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($orders)
+    public function __construct($order)
     {
-        $this->orders = $orders;
+        $this->order = $order;
     }
 
     /**

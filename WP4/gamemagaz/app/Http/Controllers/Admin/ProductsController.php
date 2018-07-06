@@ -28,7 +28,6 @@ class ProductsController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
         $product = new Product();
         $product->name = $request->all()['name'];
         $product->categorie_id = $request->all()['categorie_id'];
