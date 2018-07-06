@@ -1,27 +1,36 @@
-@extends('layouts.app')
+@extends('admin.base')
 
-@section('content')
-    <div class="container">
-        <a href="{{route('admin.categories.create')}}" class="btn btn-primary">Добавить</a>
-        <table class="table table-bordered">
-            <thead>
+@section('main-content')
+    <div class="row mb-3">
+        <h2 class="col-lg-12">Категории</h2>
+    </div>
+    <div class="row mb-3">
+        <div class="col-lg-12">
+            <a class="btn btn-primary" href="{{route('admin.categories.create')}}" role="button">Добавить</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
                 <tr>
-                    <th>Удаление</th>
+                    <th>Номер</th>
                     <th>Название</th>
                     <th>Описание</th>
-                    <th>Редактировать</th>
+                    <th>Действие</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 @foreach($categories as $categorie)
-                <tr id="{{$categorie->id}}">
-                    <td><a href="{{route('admin.categories.delete', ['categorie_id' => $categorie->id])}}">X</a></td>
-                    <td>{{$categorie->name}}</td>
-                    <td>{{$categorie->description}}</td>
-                    <td><a href="{{route('admin.categories.edit' , ['categorie_id' => $categorie->id])}}">edit</a></td>
-                </tr>
+                    <tr id="{{$categorie->id}}">
+                        <td>{{$categorie->id}}</td>
+                        <td>{{$categorie->name}}</td>
+                        <td>{{$categorie->description}}</td>
+                        <td><a class="badge badge-primary" href="{{route('admin.categories.edit' , ['categorie_id' => $categorie->id])}}">Изменить</a></td>
+                    </tr>
                 @endforeach
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 @endsection

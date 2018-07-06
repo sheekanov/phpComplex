@@ -12,9 +12,11 @@ class ProductsController extends Controller
 {
     public function index()
     {
+
         $products = Product::all();
         $data['products'] = $products;
         return view('admin.products', $data);
+
     }
 
     public function create()
@@ -79,7 +81,6 @@ class ProductsController extends Controller
     {
 
         $product = Product::find($product_id);
-        Storage::deleteDirectory('uploads/products/prod-id-' . $product->id);
         $product->delete();
         return redirect()->route('admin.products');
     }

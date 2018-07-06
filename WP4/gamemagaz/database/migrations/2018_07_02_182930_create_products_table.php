@@ -22,6 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('pic')->nullable();
             $table->text('description');
 
+            $table->softDeletes();
+
             $table->foreign('categorie_id')
                 ->references('id')->on('categories');
         });

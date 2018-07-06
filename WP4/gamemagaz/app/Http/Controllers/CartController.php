@@ -38,21 +38,30 @@ class CartController extends Controller
         return redirect()->route('cart');
     }
 
-    public function delete($product_id)
+    public function delete($order_id)
     {
-        Auth::user()->orders()->where('status', '=', 0)->where('product_id', '=', $product_id)->delete();
+        Auth::user()->orders()->find($order_id)->delete();
         return back();
     }
 
-    public function send()
+    public function send(Request $request)
     {
+
+        $customerName = $request->all()['name'];
+        $customerEmail = $request->all()['email'];
+
         $query = Auth::user()->orders()->where('status', '=', 0);
         $orders = $query->get()->all();
-        $query->update(['status' => 1]);
+        $query->update(['status' => 1 , 'customer_name' => $customerName, 'customer_email' => $customerEmail]);
 
         event(new OrderPostedEvent($orders));
 
-        return back();
+        $message = 'Спасибо за заказ. Наш менеджер свяжется с Вами в течение дня.';
+        $success = 1;
+
+        $response = json_encode(['message' => $message, 'success' => $success], JSON_UNESCAPED_UNICODE);
+
+        return $response;
     }
 
 }

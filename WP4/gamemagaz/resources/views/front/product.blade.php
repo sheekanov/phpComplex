@@ -1,4 +1,4 @@
-@extends('layouts.main');
+@extends('layouts.main')
 
 @section('main-content')
     <div class="product-container">
@@ -7,12 +7,17 @@
             <div class="product-container__content-text__title">{{$this_product->name}}</div>
             <div class="product-container__content-text__price">
                 <div class="product-container__content-text__price__value">
-                    Цена: <b>{{$this_product->price}}</b>
+                    Цена:@if($this_product->trashed()) 0 @else <b>{{$this_product->price}}</b>@endif
                     руб
-                </div><a href="{{route('cart.add', ['product_id' => $this_product->id])}}" class="btn btn-blue">Купить</a>
+                </div>
+                @if(!$this_product->trashed())<a href="{{route('cart.add', ['product_id' => $this_product->id])}}" class="btn btn-blue">Купить</a>@endif
             </div>
             <div class="product-container__content-text__description">
-                {!! $this_product->description !!}
+                @if($this_product->trashed())
+                    <p>Данный товар более недоступен</p>
+                @else
+                    {!! $this_product->description !!}
+                @endif
             </div>
         </div>
     </div>

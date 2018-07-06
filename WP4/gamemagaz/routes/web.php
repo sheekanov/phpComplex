@@ -12,11 +12,7 @@
 */
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
-
-Route::group(['prefix' => 'home'], function () {
-    Route::get('/', 'HomeController@index')->name('home');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/search', 'SearchController@index')->name('search');
 
@@ -29,15 +25,17 @@ Route::get('/about', 'AboutController@index')->name('about');
 Route::group(['prefix' => 'cart', 'middleware' => 'registered'], function () {
     Route::get('/', 'CartController@index')->name('cart');
     Route::get('/add/{product_id}', 'CartController@add')->name('cart.add');
-    Route::get('/delete/{product_id}', 'CartController@delete')->name('cart.delete');
-    Route::get('/send', 'CartController@send')->name('cart.send');
+    Route::get('/delete/{order_id}', 'CartController@delete')->name('cart.delete');
+    Route::post('/send', 'CartController@send')->name('cart.send');
 });
 
 Route::get('/orders', 'MyOrders@index')->name('myOrders');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'adminOnly'], function () {
 
-    Route::get('/', 'Admin\SettingsController@index')->name('admin');
+    Route::get('/', function () {
+        return redirect()->route('admin.settings');
+    })->name('admin');
     Route::get('/settings', 'Admin\SettingsController@index')->name('admin.settings');
     Route::post('/settings/send', 'Admin\SettingsController@send')->name('admin.settings.send');
     Route::get('/categories', 'Admin\CategoriesController@index')->name('admin.categories');

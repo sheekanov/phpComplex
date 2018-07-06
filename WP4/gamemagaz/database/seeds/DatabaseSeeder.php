@@ -11,6 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        //добавление настройки для email в таблицу settings
+        $orderEmail = new \App\Setting();
+        $orderEmail->name = 'order_email';
+        $orderEmail->value = 'sheekanov@gmail.com';
+        $orderEmail->save();
     }
 }
