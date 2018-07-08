@@ -1,8 +1,11 @@
 @extends('layouts.main');
 
+@section('page-title')| Мои заказы@endsection
+@section('content-title')Мои заказы@endsection
+
 @section('main-content')
     <div class="cart-product-list">
-        @foreach($orderPositions as $orderPosition)
+        @foreach($orderPositionsPagination->itemsOnPage as $orderPosition)
             <div class="cart-product-list__item">
                 <div class="cart-product__item__product-photo"><img src="{{$orderPosition->product()->withTrashed()->first()->pic}}" class="cart-product__item__product-photo__image"></div>
                 <div class="cart-product__item__product-name">
@@ -18,17 +21,5 @@
 @endsection
 
 @section('content-footer')
-    @if($pages_qty > 1)
-        <ul class="page-nav">
-            @if($current_page > 1)
-                <li class="page-nav__item"><a href="{{route('myOrders')}}?p={{$current_page-1}}" class="page-nav__item__link"><i class="fa fa-angle-double-left"></i></a></li>
-            @endif
-            @for($i=1; $i<=$pages_qty; $i++)
-                <li class="page-nav__item"><a href="{{route('myOrders')}}?p={{$i}}" class="page-nav__item__link">{{$i}}</a></li>
-            @endfor
-            @if($current_page < $pages_qty)
-                <li class="page-nav__item"><a href="{{route('myOrders')}}?p={{$current_page+1}}" class="page-nav__item__link"><i class="fa fa-angle-double-right"></i></a></li>
-            @endif
-        </ul>
-    @endif
+    {!! $orderPositionsPagination->renderPagination() !!}
 @endsection

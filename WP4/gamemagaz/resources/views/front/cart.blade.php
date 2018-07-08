@@ -1,4 +1,6 @@
 @extends('layouts.main')
+@section('page-title')| Корзина@endsection
+@section('content-title')Корзина@endsection
 
 @section('modal-section')
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -13,7 +15,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="form-row mb-3 cart__message" id="orderMessage"></div>
+                            <div class="form-row mb-3 modals__message" id="orderMessage"></div>
                             <form id="orderForm" class="" method="POST" action="{{route('cart.send')}}">
                                 {{csrf_field()}}
                                 <div class="form-row mb-3">
@@ -30,7 +32,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary modals__cart-refresh" data-dismiss="modal">Закрыть</button>
-                    <button type="button" id="orderFormSubmit" form="orderForm" class="btn btn-primary">Отправить</button>
+                    <button type="submit" id="orderFormSubmit" form="orderForm" class="btn btn-primary">Отправить</button>
                 </div>
             </div>
         </div>
@@ -62,6 +64,6 @@
 
 @section('content-footer')
     @if(!empty($orderPositions))
-        <div class="btn-buy-wrap"><a href="{{route('cart.send')}}" class="btn-buy-wrap__btn-link" data-toggle="modal" data-target="#exampleModal">Оформить заказ</a></div>
+        <div class="btn-buy-wrap"><a href="" class="btn-buy-wrap__btn-link" data-toggle="modal" data-target="#exampleModal">Оформить заказ</a></div>
     @endif
 @endsection

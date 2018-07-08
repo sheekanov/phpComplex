@@ -6,6 +6,8 @@ use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 class NewsController extends Controller
 {
@@ -15,53 +17,92 @@ class NewsController extends Controller
         return view('admin.news', ['news' => $news]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.newsCreate');
-    }
+        $message ='';
+        if (Route::currentRouteName() == 'admin.news.create_post') {
+            $rules = array(
+                'title' => 'required',
+                'text' => 'required',
+                'excerpt' => 'required',
+                'thumbnail' => 'required|image'
+            );
 
-    public function store(Request $request)
-    {
-        $news = new News();
-        $news->title = $request->all()['title'];
-        $news->text = $request->all()['text'];
-        $news->excerpt = $request->all()['excerpt'];
-        $news->save();
+            $messages = array(
+                'title.required' => 'Заголовок должен быть заполнен',
+                'text.required' => 'Текст должен быть заполнен',
+                'excerpt.required' => 'Отрывок должен быть заполнен',
+                'thumbnail.required' => 'Следует загрузить картинку',
+                'thumbnail.image' => 'Выбранный файл не является изображением'
+            );
 
-        Storage::makeDirectory('uploads/news/news-id-' . $news->id);
+            $validation = Validator::make($request->all(), $rules, $messages);
 
-        if ($request->hasFile('thumbnail')) {
-            $request->file('thumbnail')->move(storage_path() . '/app/public/uploads/news/news-id-' . $news->id, 'thumbnail.jpg');
-            $news->thumbnail = '/storage/uploads/news/news-id-' . $news->id . '/thumbnail.jpg';
-            $news->save();
+            if ($validation->fails()) {
+                $message = $validation->errors()->first();
+                return view('admin.newsCreate', ['message' => $message]);
+            } else {
+                $news = new News();
+                $news->title = $request->all()['title'];
+                $news->text = $request->all()['text'];
+                $news->excerpt = $request->all()['excerpt'];
+                $news->save();
+
+                Storage::makeDirectory('uploads/news/news-id-' . $news->id);
+                $request->file('thumbnail')->move(
+                    storage_path() . '/app/public/uploads/news/news-id-' . $news->id,
+                    'thumbnail.jpg'
+                );
+                $news->thumbnail = '/storage/uploads/news/news-id-' . $news->id . '/thumbnail.jpg';
+                $news->save();
+
+                return redirect()->route('admin.news');
+            }
         }
-        return redirect()->route('admin.news');
+        return view('admin.newsCreate', ['message' => $message]);
     }
 
-    public function edit($news_id)
+
+    public function edit($news_id, Request $request)
     {
         $news = News::find($news_id);
-        return view('admin.newsEdit', ['news' => $news]);
-    }
 
-    public function update(Request $request, $news_id)
-    {
-        $a = $this->validate($request, [
-            'title' => 'required',
-            'text' => 'required'
-        ]);
+        $message ='';
+        if (Route::currentRouteName() == 'admin.news.edit_post') {
+            $rules = array(
+                'title' => 'required',
+                'text' => 'required',
+                'excerpt' => 'required',
+                'thumbnail' => 'image'
+            );
 
-        $news = News::find($news_id);
-        $news->title = $request->all()['title'];
-        $news->text = $request->all()['text'];
-        $news->excerpt = $request->all()['excerpt'];
+            $messages = array(
+                'title.required' => 'Заголовок должен быть заполнен',
+                'text.required' => 'Текст должен быть заполнен',
+                'excerpt.required' => 'Отрывок должен быть заполнен',
+                'thumbnail.image' => 'Выбранный файл не является изображением'
+            );
 
-        if ($request->hasFile('thumbnail')) {
-            $request->file('thumbnail')->move(storage_path() . '/app/public/uploads/news/news-id-' . $news->id, 'thumbnail.jpg');
-            $news->thumbnail = '/storage/uploads/news/news-id-' . $news->id . '/thumbnail.jpg';
+            $validation = Validator::make($request->all(), $rules, $messages);
+
+            if ($validation->fails()) {
+                $message = $validation->errors()->first();
+                return view('admin.newsEdit', ['news' => $news, 'message' => $message]);
+            } else {
+                $news->title = $request->all()['title'];
+                $news->text = $request->all()['text'];
+                $news->excerpt = $request->all()['excerpt'];
+
+                if ($request->hasFile('thumbnail')) {
+                    $request->file('thumbnail')->move(storage_path() . '/app/public/uploads/news/news-id-' . $news->id, 'thumbnail.jpg');
+                    $news->thumbnail = '/storage/uploads/news/news-id-' . $news->id . '/thumbnail.jpg';
+                }
+                $news->save();
+                return redirect()->route('admin.news');
+            }
         }
-        $news->save();
-        return redirect()->route('admin.news');
+
+        return view('admin.newsEdit', ['news' => $news, 'message' => $message]);
     }
 
     public function delete($news_id)

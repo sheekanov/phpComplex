@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomClasses\Pagination;
 use Illuminate\Http\Request;
 use App\Product;
 
@@ -9,18 +10,10 @@ class SearchController extends Controller
 {
     public function index(Request $request)
     {
-        if (isset($request->all()['p'])) {
-            $currentPage = $request->all()['p'];
-        } else {
-            $currentPage = 1;
-        }
         $searchString = $request->all()['search'];
-        //dd($request->all());
-        $query = Product::where('name', 'like', "%$searchString%");
-        $pagesQty = (int)ceil($query->count()/6);
-        $prods = $query->orderBy('created_at', 'desc')->forPage($currentPage, 6)->get();
-        $data = ['page_title' => 'Поиск','content_title' => 'Результаты поиска','search_string' => $searchString, 'products' => $prods, 'pages_qty' => $pagesQty, 'current_page' => $currentPage];
+        $prods = Product::where('name', 'like', "%$searchString%")->orderBy('created_at', 'desc')->get();
+        $pagination = new Pagination($prods, 6, $request, [], "search=$searchString");
 
-        return view('front.search', $data);
+        return view('front.search', ['productsPagination' => $pagination]);
     }
 }

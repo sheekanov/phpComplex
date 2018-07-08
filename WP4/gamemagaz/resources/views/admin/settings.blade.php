@@ -4,6 +4,11 @@
     <div class="row mb-3">
         <h2 class="col-lg-12">Настройки</h2>
     </div>
+    <div class="row mb-3">
+        <div class="col-lg-12" style="min-height: 1.5rem; color: red">
+            {{$message}}
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <form method="POST" action="{{route('admin.settings.send')}}">

@@ -2,7 +2,7 @@
 
 @section('main-content')
     <div class="row mb-3">
-        <h2 class="col-lg-12">Заказ №{{$order->id}} от {{$order->updated_at->format('d.m.Y')}}</h2>
+        <h2 class="col-lg-12">Заказ №{{$order->id}} от {{$order->updated_at->format('d.m.Y H:i')}}</h2>
     </div>
     <div class="row mb-5">
         <div class="col-lg-12">

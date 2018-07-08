@@ -4,9 +4,14 @@
     <div class="row mb-3">
         <h2 class="col-lg-12">Изменить продукт "{{$product->name}}"</h2>
     </div>
+    <div class="row mb-3">
+        <div class="col-lg-12" style="min-height: 1.5rem; color: red">
+            {{$message}}
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-8">
-            <form id="productForm" enctype="multipart/form-data" method="POST"  action="{{route('admin.products.update', ['product_id' => $product->id])}}">
+            <form id="productForm" enctype="multipart/form-data" method="POST"  action="{{route('admin.products.edit_post', ['product_id' => $product->id])}}">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="inputTitle">Название</label>

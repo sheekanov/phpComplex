@@ -5,54 +5,77 @@ namespace App\Http\Controllers\Admin;
 use App\Categorie;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Categorie::all();
-        $data['categories'] = $categories;
-        return view('admin.categories', $data);
+        $categories = Categorie::orderBy('created_at', 'desc')->get();
+        return view('admin.categories', ['categories' => $categories]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.categoriesCreate');
+        $message ='';
+        if (Route::currentRouteName() == 'admin.categories.create_post') {
+            $rules = array(
+                'name' => 'required',
+                'description' => 'required'
+            );
+
+            $messages = array(
+                'name.required' => 'Название должно быть заполнено',
+                'description.required' => 'Описание должно быть заполнено',
+            );
+
+            $validation = Validator::make($request->all(), $rules, $messages);
+            if ($validation->fails()) {
+                $message = $validation->errors()->first();
+                return view('admin.categoriesCreate', ['message' => $message]);
+            } else {
+                $categorie = new Categorie();
+                $categorie->name = $request->all()['name'];
+                $categorie->description = $request->all()['description'];
+                $categorie->save();
+                return redirect()->route('admin.categories');
+            }
+        }
+
+        return view('admin.categoriesCreate', ['message' => $message]);
     }
 
-    public function store(Request $request)
+    public function edit($categorie_id, Request $request)
     {
-        $a = $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
-        ]);
 
-        $categorie = new Categorie();
-        $categorie->name = $request->all()['name'];
-        $categorie->description = $request->all()['description'];
-        $categorie->save();
-        return redirect()->route('admin.categories');
-    }
-
-    public function edit($categorie_id)
-    {
         $categorie = Categorie::find($categorie_id);
-        $data['categorie'] = $categorie;
-        return view('admin.categoriesEdit', $data);
-    }
 
-    public function update($categorie_id, Request $request)
-    {
-        $a = $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
-        ]);
+        $message ='';
+        if (Route::currentRouteName() == 'admin.categories.edit_post') {
+            $rules = array(
+                'name' => 'required',
+                'description' => 'required'
+            );
 
-        $categorie = Categorie::find($categorie_id);
-        $categorie->name = $request->all()['name'];
-        $categorie->description = $request->all()['description'];
-        $categorie->save();
-        return redirect()->route('admin.categories');
+            $messages = array(
+                'name.required' => 'Название должно быть заполнено',
+                'description.required' => 'Описание должно быть заполнено',
+            );
+
+            $validation = Validator::make($request->all(), $rules, $messages);
+            if ($validation->fails()) {
+                $message = $validation->errors()->first();
+                return view('admin.categoriesEdit', ['categorie' => $categorie, 'message' => $message]);
+            } else {
+                $categorie->name = $request->all()['name'];
+                $categorie->description = $request->all()['description'];
+                $categorie->save();
+                return redirect()->route('admin.categories');
+            }
+        }
+
+        return view('admin.categoriesEdit', ['categorie' => $categorie, 'message' => $message]);
     }
 
     public function delete($categorie_id)

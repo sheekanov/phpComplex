@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>{{$page_title}}</title>
+    <title>{{ config('app.name', 'Laravel') }} @yield('page-title')</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -17,10 +17,9 @@
         <div class="logotype-container"><a href="/" class="logotype-link"><img src="/img/logo.png" alt="Логотип"></a></div>
         <nav class="main-navigation">
             <ul class="nav-list">
-                <li class="nav-list__item"><a href="/" class="nav-list__item__link">Главная</a></li>
-                <li class="nav-list__item"><a href="{{route('myOrders')}}" class="nav-list__item__link">Мои заказы</a></li>
-                <li class="nav-list__item"><a href="{{route('news')}}" class="nav-list__item__link">Новости</a></li>
-                <li class="nav-list__item"><a href="{{route('about')}}" class="nav-list__item__link">О компании</a></li>
+                @foreach(\App\Menu::where('name', '=', 'Main')->first()->menuItems()->get() as $menuItem)
+                    <li class="nav-list__item"><a href="{{route($menuItem->route_name)}}" class="nav-list__item__link">{{$menuItem->title}}</a></li>
+                @endforeach
             </ul>
         </nav>
         <div class="header-contact">
@@ -93,7 +92,7 @@
             <div class="content-middle">
                 <div class="content-head__container">
                     <div class="content-head__title-wrap">
-                        <div class="content-head__title-wrap__title bcg-title">{{$content_title}}</div>
+                        <div class="content-head__title-wrap__title bcg-title">@yield('content-title')</div>
                     </div>
                     <div class="content-head__search-block">
                         <div class="search-container">

@@ -14,8 +14,6 @@ class ProductController extends Controller
 
         $latestProds = Product::where('id', '!=', $product_id)->orderBy('created_at', 'desc')->take(3)->get();
         $data = [
-            'page_title' => 'Игра',
-            'content_title' => $thisProd->name . ' в разделе ' . $thisProd->categorie()->withTrashed()->first()->name,
             'this_product' => $thisProd,
             'latest_products' => $latestProds
         ];

@@ -90,9 +90,15 @@ module.exports = __webpack_require__(46);
             data: data
         }).done(function (response) {
             var jsoned = JSON.parse(response);
-            $('#orderForm').addClass('modal__form--hidden');
-            $('#orderFormSubmit').addClass('modal__form-submit-hidden');
-            $('#orderMessage').html(jsoned.message);
+            if (jsoned.success) {
+                $('#orderForm').addClass('modal__form--hidden');
+                $('#orderFormSubmit').addClass('modal__form-submit-hidden');
+                $('#orderMessage').removeClass('modals__message--error');
+                $('#orderMessage').html(jsoned.message);
+            } else {
+                $('#orderMessage').addClass('modals__message--error');
+                $('#orderMessage').html(jsoned.message);
+            }
         });
     });
 

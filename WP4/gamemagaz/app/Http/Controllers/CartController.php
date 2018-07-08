@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Events\OrderPostedEvent;
-use App\Mail\newOrder;
 use App\Order;
 use App\OrderPosition;
-use App\Product;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Setting;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 
 class CartController extends Controller
@@ -25,9 +22,8 @@ class CartController extends Controller
         if (!is_null($order)) {
             $orderPositions = $order->orderPositions()->orderBy('created_at')->get()->all();
         }
-        $data = ['page_title' => 'Корзина','content_title' => 'Мои заказы', 'orderPositions' => $orderPositions];
 
-        return view('front.cart', $data);
+        return view('front.cart', ['orderPositions' => $orderPositions]);
     }
 
     public function add($product_id)
@@ -64,18 +60,41 @@ class CartController extends Controller
 
     public function send(Request $request)
     {
+        $rules = array(
+            'name' => 'required',
+            'email' => 'required|email'
+        );
 
-        $customerName = $request->all()['name'];
-        $customerEmail = $request->all()['email'];
+        $messages = array(
+            'name.required' => 'Укажите Ваше имя',
+            'email.required' => 'Укажите Ваш Email',
+            'email.email' => 'Некорректный формат Email'
+        );
 
-        $query = Auth::user()->orders()->where('status', '=', 0);
-        $order = $query->first();
-        $query->update(['status' => 1 , 'customer_name' => $customerName, 'customer_email' => $customerEmail]);
+        $validation = Validator::make($request->all(), $rules, $messages);
 
-        event(new OrderPostedEvent($order));
+        if ($validation->fails()) {
+            $message = $validation->errors()->first();
+            $success = 0;
+        } else {
+            try {
+                $customerName = strip_tags($request->all()['name']);
+                $customerName = htmlspecialchars($customerName, ENT_QUOTES);
+                $customerEmail = strip_tags($request->all()['email']);
+                $customerEmail = htmlspecialchars($customerEmail, ENT_QUOTES);
 
-        $message = 'Спасибо за заказ. Наш менеджер свяжется с Вами в течение дня.';
-        $success = 1;
+                $query = Auth::user()->orders()->where('status', '=', 0);
+                $order = $query->first();
+                $query->update(['status' => 1 , 'customer_name' => $customerName, 'customer_email' => $customerEmail]);
+                event(new OrderPostedEvent($order));
+                $success = 1;
+                $message = 'Спасибо за заказ. Наш менеджер свяжется с Вами в течение дня.';
+            } catch (\Exception $e) {
+                $success = 0;
+                $message = 'Произошла непредвиденная ошибка. Попробуйте позже или свяжитесь с администратором';
+                Log::error($e->getMessage(), ['exception' => $e]);
+            }
+        }
 
         $response = json_encode(['message' => $message, 'success' => $success], JSON_UNESCAPED_UNICODE);
 

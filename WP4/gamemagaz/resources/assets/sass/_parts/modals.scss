@@ -5,3 +5,11 @@
 .modal__form-submit-hidden{
   display: none;
 }
+
+.modals__message{
+  min-height: 1.5rem;
+}
+
+.modals__message--error{
+  color: red;
+}

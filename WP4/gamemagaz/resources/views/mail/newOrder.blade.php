@@ -1,4 +1,4 @@
-<p>Поступил заказ <b>№{{$order->id}}</b> от {{$order->updated_at->format('d.m.Y')}}</p>
+<p>Поступил заказ <b>№{{$order->id}}</b> от {{$order->updated_at->format('d.m.Y H:i')}}</p>
 <p>Пользователь <b>{{$order->user->name}} ({{$order->customer_name}} {{$order->customer_email}})</b> оформил заказ :</p>
 <table>
     <thead>

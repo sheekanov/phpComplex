@@ -4,9 +4,14 @@
     <div class="row mb-3">
         <h2 class="col-lg-12">Редактировать новость</h2>
     </div>
+    <div class="row mb-3">
+        <div class="col-lg-12" style="min-height: 1.5rem; color: red">
+            {{$message}}
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
-            <form id="newsForm" enctype="multipart/form-data" method="POST"  action="{{route('admin.news.update', ['news_id' => $news->id])}}">
+            <form id="newsForm" enctype="multipart/form-data" method="POST"  action="{{route('admin.news.edit_post', ['news_id' => $news->id])}}">
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="inputTitle">Заголовок</label>
