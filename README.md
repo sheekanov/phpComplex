@@ -3,8 +3,11 @@ Loftschool php complex course 2018
 
 ---------------------------------------------
 Выпускной проект 4 - https://github.com/sheekanov/phpComplex/tree/master/WP4/gamemagaz
+
 ВП 4 на хостинге - http://games.sheekanov.ru/
+
 Ссылка на админку - http://games.sheekanov.ru/admin/
+
 Для входа в админку необходимо при регистрации пользователя выбрать опцию "Grant Admin privileges"
 
 Порядок установки приложения:
