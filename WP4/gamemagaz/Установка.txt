@@ -1,0 +1,3 @@
+1. Символическая ссылка на public: ln -s public public_html
+2. Установка сторонних комнонентов php composer install
+3. Создание символической ссылки на public/storage php artisan storage:link
