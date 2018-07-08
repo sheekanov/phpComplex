@@ -80,7 +80,7 @@ module.exports = __webpack_require__(46);
 (function () {
     $('#orderFormSubmit').on('click', function (e) {
         e.preventDefault();
-
+        $('#orderMessage').html('Информация обрабатывается...');
         var data = $('#orderForm').serialize();
 
         $.ajax({

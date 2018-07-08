@@ -2,7 +2,7 @@
 (function(){
     $('#orderFormSubmit').on('click', function (e) {
         e.preventDefault();
-
+        $('#orderMessage').html('Информация обрабатывается...');
         var data = $('#orderForm').serialize();
 
         $.ajax({
