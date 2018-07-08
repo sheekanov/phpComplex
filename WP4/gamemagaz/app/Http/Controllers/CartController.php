@@ -83,9 +83,12 @@ class CartController extends Controller
                 $customerEmail = strip_tags($request->all()['email']);
                 $customerEmail = htmlspecialchars($customerEmail, ENT_QUOTES);
 
-                $query = Auth::user()->orders()->where('status', '=', 0);
-                $order = $query->first();
-                $query->update(['status' => 1 , 'customer_name' => $customerName, 'customer_email' => $customerEmail]);
+                $order = Auth::user()->orders()->where('status', '=', 0)->first();
+                $order->status = 1;
+                $order->customer_name = $customerName;
+                $order->customer_email = $customerEmail;
+                $order->save();
+
                 event(new OrderPostedEvent($order));
                 $success = 1;
                 $message = 'Спасибо за заказ. Наш менеджер свяжется с Вами в течение дня.';
